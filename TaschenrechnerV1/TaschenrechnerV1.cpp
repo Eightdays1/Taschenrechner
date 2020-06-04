@@ -30,7 +30,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // TODO: Hier Code einfügen.
 
-    //Controller controller;
+    Controller controller();
     //controller.init();
 
     // Globale Zeichenfolgen initialisieren

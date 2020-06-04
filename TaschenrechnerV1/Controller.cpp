@@ -13,7 +13,7 @@ namespace calculator
 
 	Controller::init()
 	{
-		this.calculate("2+3");
+		//this.calculate("2+3");
 	}
 
 	void Controller::calculate(string pInput)
