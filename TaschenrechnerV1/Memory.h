@@ -5,20 +5,25 @@
 #include <string>
 #include <iostream>
 
-using namespace std;
-
-class Memory
+namespace claculator
 {
-public:
-	Memory(String input, double result);			//Konstruktor
-	~Memory();										//Destruktor
 
-	string getInput();
-	double getResult();
+	using namespace std;
 
-private:
-	double numberresult;
-	string input;
-};
+	class Memory
+	{
+	public:
+		Memory(string input, double result);			//Konstruktor
+		~Memory();										//Destruktor
+
+		string getInput();
+		double getResult();
+
+	private:
+		double numberresult;
+		string input;
+	};
+}
+
 
 #endif // !NUMBER_H

@@ -1,13 +1,14 @@
 #include "Operation.h"
 
-Number::Operation(double number)
+
+namespace calculator
 {
+	Operation::Operation()
+	{
+	}
+
+	Operation::~Operation()
+	{
+	}
 }
 
-Number::Operation()
-{
-}
-
-Number::~Operation()
-{
-}

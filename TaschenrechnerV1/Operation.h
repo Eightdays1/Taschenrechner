@@ -5,19 +5,24 @@
 #include <string>
 #include <iostream>
 
-using namespace std;
-
-class Number
+namespace clalculator
 {
-public:
-	Operation();						//Konstruktor
-	~Operation();						//Destruktor
+	using namespace std;
 
-	//define methods
+	class Operation
+	{
+	public:
+		Operation();						//Konstruktor
+		~Operation();						//Destruktor
 
-private:
+		//define methods
 
-	//define Variables
-};
+	private:
+
+		//define Variables
+	};
+
+}
+
 
 #endif // !NUMBER_H

@@ -4,17 +4,20 @@
 
 #include <string>
 #include <iostream>
-using namespace std;
-class Number
+
+namespace calculator
 {
-public:
-	Number(double number);			//Konstruktor
-	~Number();						//Destruktor
+	using namespace std;
+	class Number
+	{
+	public:
+		Number(double number);			//Konstruktor
+		~Number();						//Destruktor
 
-	double getNumber();
+		double getNumber();
 
-private:
-	double number;
-};
-
+	private:
+		double number;
+	};
+}
 #endif // !NUMBER_H

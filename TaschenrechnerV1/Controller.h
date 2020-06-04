@@ -4,19 +4,28 @@
 
 #include <string>
 #include <iostream>
+#include "TaschenrechnerV1.h"
 
-using namespace std;
-
-class Controller
+namespace calculator
 {
-public:
-	Controller(double number);			//Konstruktor
-	~Controller();						//Destruktor
+	using namespace std;
 
-	//define Methods
+	class Controller
+	{
+	public:
+		Controller();				//Konstruktor
+		~Controller();				//Destruktor
 
-private:
-	// define variables
-};
+		/*Method for initializing*/
+		void init();
+
+		/*Is called by GUI if there is an Input. Input is given as String*/
+		void calculate(string pInput);
+		//define Methods
+
+	private:
+		string input;
+	};
+}
 
 #endif // !NUMBER_H

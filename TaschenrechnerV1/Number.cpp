@@ -1,14 +1,18 @@
 #include "Number.h"
 
-Number::Number(double number)
+namespace calculator
 {
+	Number::Number(double number)
+	{
+	}
+
+	Number::~Number()
+	{
+	}
+
+	double Number::getNumber()
+	{
+		return number;
+	}
 }
 
-Number::~Number()
-{
-}
-
-double Number::getNumber()
-{
-	return number;
-}
