@@ -3,7 +3,7 @@
 
 #include "framework.h"
 #include "TaschenrechnerV1.h"
-#include "Controller.h"
+#include "Controller.cpp"
 
 #define MAX_LOADSTRING 100
 
@@ -30,8 +30,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // TODO: Hier Code einfügen.
 
-    Controller controller();
-    //controller.init();
+    Controller c1;
+    c1.init();
 
     // Globale Zeichenfolgen initialisieren
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);

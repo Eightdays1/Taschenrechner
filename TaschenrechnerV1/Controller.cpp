@@ -1,5 +1,5 @@
 #include "Controller.h"
-#include "TaschenrechnerV1.cpp"
+#include <iostream>
 
 namespace calculator
 {
@@ -11,16 +11,17 @@ namespace calculator
 	{
 	}
 
-	Controller::init()
+	void Controller::init()
 	{
-		//this.calculate("2+3");
+		this.calculate("2+3");
 	}
 
 	void Controller::calculate(string pInput)
 	{
-		//split String, store in Array
+		//split String, store in Array/Vector
 		//Convert String into UPN
 		//Create Objects and solve UPN
+		//Return result
 	}
 
 }

@@ -4,4 +4,4 @@
 3. - Klassendiagramm für Doku in saubere Form bringen
 4. - [nach 1.] Shunting-yard-Algorithmus ausprogrammieren
 5. - [nach 2.] Algorithmus für Auswertung UPN ausprogrammieren
-6. - Fehler bei Methodenaufruf beheben(TaschenrechnerV1.cpp - Line 34 [controller.init();])
+	6. - Fehler bei Methodenaufruf beheben(TaschenrechnerV1.cpp - Line 34 [controller.init();])
