@@ -24,7 +24,7 @@ namespace calculator
 		//define Methods
 
 	private:
-		string input;
+		string m_input;
 	};
 }
 

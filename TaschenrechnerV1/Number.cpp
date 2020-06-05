@@ -2,7 +2,7 @@
 
 namespace calculator
 {
-	Number::Number(double number)
+	Number::Number(double pNumber)
 	{
 	}
 
@@ -12,7 +12,7 @@ namespace calculator
 
 	double Number::getNumber()
 	{
-		return number;
+		return m_number;
 	}
 }
 

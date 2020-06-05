@@ -11,13 +11,13 @@ namespace calculator
 	class Number
 	{
 	public:
-		Number(double number);			//Konstruktor
+		Number(double pNumber);			//Konstruktor
 		~Number();						//Destruktor
 
 		double getNumber();
 
 	private:
-		double number;
+		double m_number;
 	};
 }
 #endif // !NUMBER_H

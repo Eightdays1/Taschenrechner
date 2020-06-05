@@ -3,7 +3,7 @@
 namespace calculator
 {
 
-	Memory::Memory(String input, double result) : input(input), reult(result)
+	Memory::Memory(string input, double result) : m_input(pInput), m_reult(pResult)
 	{
 	}
 
@@ -13,12 +13,12 @@ namespace calculator
 
 	string Memory::getInput()
 	{
-		return input;
+		return m_input;
 	}
 
 	double Memory::getResult()
 	{
-		return result;
+		return m_result;
 	}
 }
 

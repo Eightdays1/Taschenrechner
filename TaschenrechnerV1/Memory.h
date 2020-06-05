@@ -13,15 +13,15 @@ namespace claculator
 	class Memory
 	{
 	public:
-		Memory(string input, double result);			//Konstruktor
+		Memory(string pInput, double pResult);			//Konstruktor
 		~Memory();										//Destruktor
 
 		string getInput();
 		double getResult();
 
 	private:
-		double numberresult;
-		string input;
+		double m_numberresult;
+		string m_input;
 	};
 }
 
