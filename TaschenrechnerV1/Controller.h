@@ -8,8 +8,6 @@
 
 namespace calculator
 {
-	using namespace std;
-
 	class Controller
 	{
 	public:
@@ -20,11 +18,12 @@ namespace calculator
 		void init();
 
 		/*Is called by GUI if there is an Input. Input is given as String*/
-		void calculate(string pInput);
+		void calculate(std::string pInput);
 		//define Methods
 
 	private:
-		string m_input;
+		std::string m_input;
+		int * splitString(std::string pInputString);
 	};
 }
 

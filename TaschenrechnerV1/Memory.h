@@ -7,9 +7,6 @@
 
 namespace claculator
 {
-
-	using namespace std;
-
 	class Memory
 	{
 	public:

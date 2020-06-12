@@ -5,9 +5,9 @@
 #include "TaschenrechnerV1.h"
 #include "Controller.cpp"
 
+
 #define MAX_LOADSTRING 100
 
-using namespace calculator;
 
 // Globale Variablen:
 HINSTANCE hInst;                                // Aktuelle Instanz
@@ -30,8 +30,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // TODO: Hier Code einfügen.
 
-    Controller c1;
+    calculator::Controller c1;
     c1.init();
+
 
     // Globale Zeichenfolgen initialisieren
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);

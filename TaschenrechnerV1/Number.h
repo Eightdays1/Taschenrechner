@@ -7,7 +7,6 @@
 
 namespace calculator
 {
-	using namespace std;
 	class Number
 	{
 	public:

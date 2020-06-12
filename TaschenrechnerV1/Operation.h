@@ -7,8 +7,6 @@
 
 namespace clalculator
 {
-	using namespace std;
-
 	class Operation
 	{
 	public:
