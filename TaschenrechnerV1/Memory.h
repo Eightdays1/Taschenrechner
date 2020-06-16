@@ -10,15 +10,15 @@ namespace claculator
 	class Memory
 	{
 	public:
-		Memory(string pInput, double pResult);			//Konstruktor
+		Memory(std::string pInput, double pResult);			//Konstruktor
 		~Memory();										//Destruktor
 
-		string getInput();
+		std::string getInput();
 		double getResult();
 
 	private:
 		double m_numberresult;
-		string m_input;
+		std::string m_input;
 	};
 }
 
