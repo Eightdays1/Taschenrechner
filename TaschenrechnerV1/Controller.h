@@ -23,7 +23,7 @@ namespace calculator
 
 	private:
 		std::string m_input;
-		int * splitString(std::string pInputString);
+		void splitString(std::string pInputString);
 	};
 }
 

@@ -1,8 +1,12 @@
 #include "Controller.h"
 #include <iostream>
+#include <vector>
 
 namespace calculator
 {
+	std::vector<std::string> vInput{};
+
+
 	Controller::Controller()
 	{
 	}
@@ -25,18 +29,39 @@ namespace calculator
 		//Return result
 	}
 
-	int * Controller::splitString(std::string pInputString) {
-		char* tempChars = new char[pInputString.length() + 1] { 0 };
-		strcpy(tempChars, pInputString.c_str());
+	void Controller::splitString(std::string pInputString) {
+		//std::vector<std::string> vInput;
 
-		//Long version of resulting Array, coppy Values in shorter Array later:
-		std::string* aInputArrayLong = new std::string[pInputString.length() + 1];
+		std::string sLastNumber = "";
+		for (int i = 0; i < pInputString.length(); i++) {
+			std::string sCurrentElement(1, pInputString[i]);
+			if (is_number(sCurrentElement)) {
+				if (sLastNumber == "") {
+					sLastNumber == sCurrentElement;
+				}
+				else {
+					sLastNumber.append(sCurrentElement);
+				}
+			}
+			else if (sLastNumber == "") {
+				vInput.push_back(sCurrentElement);
+			}
+			else {
+				vInput.push_back(sLastNumber);
+				vInput.push_back(sCurrentElement);
+			}
+		}
+	}
 
-
-		
-
-		return NULL;
-
+	//returns true if String is one-digit Number
+	bool is_number(std::string pString) {
+		if (pString == "0" || pString == "1" || pString == "2" || pString == "3" || pString == "4" || pString == "5" ||
+			pString == "6" || pString == "7" || pString == "8" || pString == "9") {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 }
