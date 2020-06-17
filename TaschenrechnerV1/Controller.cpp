@@ -25,7 +25,8 @@ namespace calculator
 		//split String, store in Array/Vector
 		splitString(pInput);
 		//Convert String into UPN
-		//Create Objects and solve UPN
+		convertvInputToUPN();
+		//(Create Objects and )solve UPN
 		//Return result
 	}
 
@@ -35,7 +36,7 @@ namespace calculator
 		std::string sLastNumber = "";
 		for (int i = 0; i < pInputString.length(); i++) {
 			std::string sCurrentElement(1, pInputString[i]);
-			if (is_number(sCurrentElement)) {
+			if (isNumber(sCurrentElement)) {
 				if (sLastNumber == "") {
 					sLastNumber == sCurrentElement;
 				}
@@ -53,8 +54,15 @@ namespace calculator
 		}
 	}
 
+	//converts global vInput to UPN-Format(Prefix-notation)
+	void Controller::convertvInputToUPN() {
+
+		//shunting-Yard-Algorithm
+
+	}
+
 	//returns true if String is one-digit Number
-	bool is_number(std::string pString) {
+	bool Controller::isNumber(std::string pString) {
 		if (pString == "0" || pString == "1" || pString == "2" || pString == "3" || pString == "4" || pString == "5" ||
 			pString == "6" || pString == "7" || pString == "8" || pString == "9") {
 			return true;
