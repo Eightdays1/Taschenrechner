@@ -31,7 +31,6 @@ namespace calculator
 	}
 
 	void Controller::splitString(std::string pInputString) {
-		//std::vector<std::string> vInput;
 
 		std::string sLastNumber = "";
 		for (int i = 0; i < pInputString.length(); i++) {
@@ -58,6 +57,12 @@ namespace calculator
 	void Controller::convertvInputToUPN() {
 
 		//shunting-Yard-Algorithm
+
+	}
+
+	void Controller::solveUPN(std::vector<std::string> pUPNvector) {
+
+		//solveUPN Algorithmus
 
 	}
 

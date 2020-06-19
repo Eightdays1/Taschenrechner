@@ -25,6 +25,7 @@ namespace calculator
 		std::string m_input;
 		void splitString(std::string pInputString);
 		void convertvInputToUPN();
+		void solveUPN(std::vector<std::string> pUPNvector);
 		bool isNumber(std::string pString);
 	};
 }
