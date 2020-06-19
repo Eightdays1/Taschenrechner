@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Controller.h"
+#include <Windows.h>
 
 using namespace System;
 
@@ -18,10 +19,8 @@ int main() {
 	Application::SetCompatibleTextRenderingDefault(false);
 	Application::Run(gcnew CppCLRWinformsProjekt::Form1()); 
 
-
-
-	calculator::Controller c1;
-	c1.init();
+	//calculator::Controller c1;
+	//c1.init();
 
 	return 0;
 }

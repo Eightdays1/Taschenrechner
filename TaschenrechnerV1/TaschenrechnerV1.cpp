@@ -30,9 +30,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // TODO: Hier Code einfügen.
 
-    calculator::Controller c1;
-    c1.init();
-
 
     // Globale Zeichenfolgen initialisieren
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -48,6 +45,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_TASCHENRECHNERV1));
 
     MSG msg;
+
+    calculator::Controller c1;
+    c1.init();
 
     // Hauptnachrichtenschleife:
     while (GetMessage(&msg, nullptr, 0, 0))

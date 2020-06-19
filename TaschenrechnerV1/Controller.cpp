@@ -38,7 +38,7 @@ namespace calculator
 			std::string sCurrentElement(1, pInputString[i]);
 			if (isNumber(sCurrentElement)) {
 				if (sLastNumber == "") {
-					sLastNumber == sCurrentElement;
+					sLastNumber = sCurrentElement;
 				}
 				else {
 					sLastNumber.append(sCurrentElement);
