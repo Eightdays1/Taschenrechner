@@ -1,6 +1,6 @@
 	0. - ToDo-Liste anlegen(einrücken wie 0. wenn erledigt)
 	1. - Shunting-yard-Algorithmus in Struktogramm schreiben (https://de.wikipedia.org/wiki/Shunting-yard-Algorithmus)
-2. - Algorithmus für Auswertung UPN in Struktogramm schreiben (https://de.wikipedia.org/wiki/Umgekehrte_polnische_Notation - Algorithmen - Auswertung)
+	2. - Algorithmus für Auswertung UPN in Struktogramm schreiben (https://de.wikipedia.org/wiki/Umgekehrte_polnische_Notation - Algorithmen - Auswertung)
 3. - Klassendiagramm für Doku in saubere Form bringen
 4. - [nach 1.] Shunting-yard-Algorithmus ausprogrammieren
 5. - [nach 2.] Algorithmus für Auswertung UPN ausprogrammieren
