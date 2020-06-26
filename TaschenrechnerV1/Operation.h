@@ -2,25 +2,27 @@
 #ifndef OPERATION_H
 #define OPERATION_H
 
-#include <string>
-#include <iostream>
+//#include "TaschenrechnerV1.h"
 
-namespace clalculator
+namespace calculator
 {
 	class Operation
 	{
 	public:
-		Operation();						//Konstruktor
-		~Operation();						//Destruktor
+		Operation(double pNum1, double pNum2);	//Konstruktor
+		Operation();
+		~Operation();							//Destruktor
 
 		//define methods
+		virtual double solve();
 
-	private:
+	protected:
 
 		//define Variables
+		double m_Num1;
+		double m_Num2;
 	};
 
 }
 
-
-#endif // !NUMBER_H
+#endif
