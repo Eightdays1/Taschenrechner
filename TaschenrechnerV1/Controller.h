@@ -22,11 +22,15 @@ namespace calculator
 		//define Methods
 
 	private:
+		//Attributes
 		std::string m_input;
+
+		//Methods
 		void splitString(std::string pInputString);
 		void convertvInputToUPN();
-		void solveUPN(std::vector<std::string> pUPNvector);
+		void solveUPN(/*std::vector<std::string> pUPNvector*/);
 		bool isNumber(std::string pString);
+		
 	};
 }
 

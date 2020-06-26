@@ -15,18 +15,22 @@ namespace calculator
 	{
 	}
 
+	//Method for initializing
 	void Controller::init()
 	{
 		calculate("2+3");
 	}
 
+	//Is called by GUI if there is an Input. Input is given as String
 	void Controller::calculate(std::string pInput)
 	{
+		m_input = pInput;
 		//split String, store in Array/Vector
 		splitString(pInput);
 		//Convert String into UPN
 		convertvInputToUPN();
 		//(Create Objects and )solve UPN
+		//Save Input and results in Memory
 		//Return result
 	}
 
@@ -60,7 +64,7 @@ namespace calculator
 
 	}
 
-	void Controller::solveUPN(std::vector<std::string> pUPNvector) {
+	void Controller::solveUPN(/*std::vector<std::string> pUPNvector*/) {
 
 		//solveUPN Algorithmus
 
@@ -76,6 +80,8 @@ namespace calculator
 			return false;
 		}
 	}
+
+	
 
 }
 
