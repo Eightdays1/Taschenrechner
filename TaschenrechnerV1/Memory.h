@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 
-namespace claculator
+namespace calculator
 {
 	class Memory
 	{
@@ -17,10 +17,10 @@ namespace claculator
 		double getResult();
 
 	private:
-		double m_numberresult;
+		double m_result;
 		std::string m_input;
 	};
 }
 
 
-#endif // !NUMBER_H
+#endif

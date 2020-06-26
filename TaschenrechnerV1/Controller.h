@@ -18,7 +18,7 @@ namespace calculator
 		void init();
 
 		/*Is called by GUI if there is an Input. Input is given as String*/
-		void calculate(std::string pInput);
+		double calculate(std::string pInput);
 		//define Methods
 
 	private:
@@ -34,4 +34,4 @@ namespace calculator
 	};
 }
 
-#endif // !NUMBER_H
+#endif

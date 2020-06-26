@@ -22,7 +22,7 @@ namespace calculator
 	}
 
 	//Is called by GUI if there is an Input. Input is given as String
-	void Controller::calculate(std::string pInput)
+	double Controller::calculate(std::string pInput)
 	{
 		m_input = pInput;
 		//split String, store in Array/Vector
@@ -32,6 +32,7 @@ namespace calculator
 		//(Create Objects and )solve UPN
 		//Save Input and results in Memory
 		//Return result
+		return NULL;
 	}
 
 	void Controller::splitString(std::string pInputString) {
