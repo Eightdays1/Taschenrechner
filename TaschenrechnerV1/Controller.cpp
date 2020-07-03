@@ -19,7 +19,8 @@ namespace calculator
 	//Method for initializing
 	void Controller::init()
 	{
-		calculate("2+3");
+
+		calculate("20+3");
 	}
 
 	//Is called by GUI if there is an Input. Input is given as String
@@ -61,6 +62,13 @@ namespace calculator
 
 	//converts global vInput to UPN-Format(Prefix-notation)
 	void Controller::convertvInputToUPN() {
+		std::stack<std::string> input;
+		std::vector<std::string> output;
+
+		for (std::string &token : vInput) {
+			std::string Test;
+			Test = token;
+		}
 
 		//shunting-Yard-Algorithm
 
