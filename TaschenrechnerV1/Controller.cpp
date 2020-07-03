@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <debugapi.h>
 
 namespace calculator
 {
@@ -65,9 +66,11 @@ namespace calculator
 		std::stack<std::string> input;
 		std::vector<std::string> output;
 
-		for (std::string &token : vInput) {
-			std::string Test;
-			Test = token;
+		std::string Test;
+		Test = vInput[1];
+		for (auto i : vInput) {
+			
+
 		}
 
 		//shunting-Yard-Algorithm
