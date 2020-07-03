@@ -37,7 +37,7 @@ namespace calculator
 		std::string sLastNumber = "";
 		for (int i = 0; i < pInputString.length(); i++) {
 			std::string sCurrentElement(1, pInputString[i]);
-			if (isNumber(sCurrentElement)) {
+			if (isOneDigitNumber(sCurrentElement)) {
 				if (sLastNumber == "") {
 					sLastNumber == sCurrentElement;
 				}
@@ -63,7 +63,7 @@ namespace calculator
 	}
 
 	//returns true if String is one-digit Number
-	bool Controller::isNumber(std::string pString) {
+	bool Controller::isOneDigitNumber(std::string pString) {
 		if (pString == "0" || pString == "1" || pString == "2" || pString == "3" || pString == "4" || pString == "5" ||
 			pString == "6" || pString == "7" || pString == "8" || pString == "9") {
 			return true;
