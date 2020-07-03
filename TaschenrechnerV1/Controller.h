@@ -35,8 +35,8 @@ namespace calculator
 		bool isNumber(std::string pString);
 		bool isBinaryOperator(std::string pString);
 		std::string computeStrings(std::string pLeftString, std::string pRightString, std::string pOperatorString);
-		void store();
-		
+		void store(std::string pInputString, std::string pResultString);
+				
 	};
 }
 

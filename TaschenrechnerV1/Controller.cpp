@@ -13,6 +13,7 @@
 namespace calculator
 {
 	std::vector<std::string> vInput{};
+	std::vector<Memory> vMemory{};
 
 
 	Controller::Controller()
@@ -42,7 +43,7 @@ namespace calculator
 		//(Create Objects and )solve UPN
 		m_result = solveUPN();
 		//Save Input and results in Memory
-
+		store(m_input, m_result);
 		//Return result
 		return NULL;
 	}
@@ -190,6 +191,10 @@ namespace calculator
 		}
 		
 		return sReturnString;
+	}
+
+	void Controller::store(std::string pInputString, std::string pResultString) {
+		vMemory[vMemory.size()-1] = calculator::Memory(pInputString, pResultString);
 	}
 
 }
