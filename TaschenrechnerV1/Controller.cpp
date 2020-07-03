@@ -1,6 +1,7 @@
 #include "Controller.h"
 #include <iostream>
 #include <vector>
+#include <stack>
 
 namespace calculator
 {
@@ -40,7 +41,7 @@ namespace calculator
 		std::string sLastNumber = "";
 		for (int i = 0; i < pInputString.length(); i++) {
 			std::string sCurrentElement(1, pInputString[i]);
-			if (isNumber(sCurrentElement)) {
+			if (isOneDigitNumber(sCurrentElement)) {
 				if (sLastNumber == "") {
 					sLastNumber = sCurrentElement;
 				}
@@ -69,10 +70,33 @@ namespace calculator
 
 		//solveUPN Algorithmus
 
+		std::stack<std::string> sStack;
+
+		std::string sRight = "";
+		std::string sLeft = "";
+		std::string sResult = "";
+
+		for each (std::string sInputString in vInput)
+		{
+			if (isNumber(sInputString)) {
+				sStack.push(sInputString);
+			}
+			else {
+				if (isBinaryOperator(sInputString)) {
+					sRight = sStack.top();
+					sStack.pop();
+					sLeft = sStack.top();
+					sStack.pop();
+					sResult = computeStrings(sLeft, sRight, sInputString);
+					sStack.push(sResult);
+				}
+			}
+		}
+
 	}
 
 	//returns true if String is one-digit Number
-	bool Controller::isNumber(std::string pString) {
+	bool Controller::isOneDigitNumber(std::string pString) {
 		if (pString == "0" || pString == "1" || pString == "2" || pString == "3" || pString == "4" || pString == "5" ||
 			pString == "6" || pString == "7" || pString == "8" || pString == "9") {
 			return true;
@@ -82,7 +106,41 @@ namespace calculator
 		}
 	}
 
-	
+	//returns true if Char is one-digit Number
+	bool Controller::isOneDigitNumber(char pChar) {
+		if (pChar == '0' || pChar == '1' || pChar == '2' || pChar == '3' || pChar == '4' || pChar == '5' ||
+			pChar == '6' || pChar == '7' || pChar == '8' || pChar == '9') {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	//returns true
+	bool Controller::isNumber(std::string pString) {
+		for (int i = 0; i < pString.length(); i++) {
+			if (!isOneDigitNumber(pString[i])) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	bool Controller::isBinaryOperator(std::string pString) {
+		if (pString == "+" || pString == "-" || pString == "*" || pString == "/" || pString == "^") {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	std::string Controller::computeStrings(std::string pLeftString, std::string pRightString, std::string pOperatorString) {
+
+		//Objekte erzeugen und Berechnen
+
+	}
 
 }
 

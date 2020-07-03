@@ -25,7 +25,7 @@ namespace calculator
 		std::string m_input;
 		void splitString(std::string pInputString);
 		void convertvInputToUPN();
-		bool isNumber(std::string pString);
+		bool isOneDigitNumber(std::string pString);
 	};
 }
 
