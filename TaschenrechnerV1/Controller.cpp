@@ -1,4 +1,10 @@
 #include "Controller.h"
+#include "Addtition.h"
+#include "Substraction.h"
+#include "Multiplication.h"
+#include "Division.h"
+#include "Power.h"
+#include "Memory.h"
 #include <iostream>
 #include <vector>
 #include <stack>
@@ -28,12 +34,15 @@ namespace calculator
 	double Controller::calculate(std::string pInput)
 	{
 		m_input = pInput;
+		
 		//split String, store in Array/Vector
 		splitString(pInput);
 		//Convert String into UPN
 		convertvInputToUPN();
 		//(Create Objects and )solve UPN
+		m_result = solveUPN();
 		//Save Input and results in Memory
+
 		//Return result
 		return NULL;
 	}
@@ -77,9 +86,7 @@ namespace calculator
 
 	}
 
-	void Controller::solveUPN(/*std::vector<std::string> pUPNvector*/) {
-
-		//solveUPN Algorithmus
+	std::string Controller::solveUPN() {
 
 		std::stack<std::string> sStack;
 
@@ -103,6 +110,7 @@ namespace calculator
 				}
 			}
 		}
+		return sStack.top();
 
 	}
 
@@ -147,12 +155,41 @@ namespace calculator
 		}
 	}
 
+	//Creates Operation-Objects, runs solve() and the destuctor, returns Solution
 	std::string Controller::computeStrings(std::string pLeftString, std::string pRightString, std::string pOperatorString) {
-		if (pOperatorString == "+") {
+		
+		std::string sReturnString = "";
+		std::string::size_type sz;
+		double dLeftNum = std::stod(pLeftString, &sz);
+		double dRightNum = std::stod(pRightString, &sz);
 
+		if (pOperatorString == "+") {
+			calculator::Addition add = calculator::Addition(dLeftNum, dRightNum);
+			sReturnString = add.solve();
+			add.~Addition();
+		}
+		else if (pOperatorString == "-") {
+			calculator::Substraction sub = calculator::Substraction(dLeftNum, dRightNum);
+			sReturnString = sub.solve();
+			sub.~Substraction();
+		}
+		else if (pOperatorString == "*") {
+			calculator::Multiplication mul = calculator::Multiplication(dLeftNum, dRightNum);
+			sReturnString = mul.solve();
+			mul.~Multiplication();
+		}
+		else if (pOperatorString == "/") {
+			calculator::Division div = calculator::Division(dLeftNum, dRightNum);
+			sReturnString = div.solve();
+			div.~Division();
+		}
+		else if (pOperatorString == "^") {
+			calculator::Power pwr = calculator::Power(dLeftNum, dRightNum);
+			sReturnString = pwr.solve();
+			pwr.~Power();
 		}
 		
-
+		return sReturnString;
 	}
 
 }

@@ -24,16 +24,18 @@ namespace calculator
 	private:
 		//Attributes
 		std::string m_input;
+		std::string m_result;
 
 		//Methods
 		void splitString(std::string pInputString);
 		void convertvInputToUPN();
-		void solveUPN(/*std::vector<std::string> pUPNvector*/);
+		std::string solveUPN(/*std::vector<std::string> pUPNvector*/);
 		bool isOneDigitNumber(std::string pString);
 		bool isOneDigitNumber(char pChar);
 		bool isNumber(std::string pString);
 		bool isBinaryOperator(std::string pString);
 		std::string computeStrings(std::string pLeftString, std::string pRightString, std::string pOperatorString);
+		void store();
 		
 	};
 }
