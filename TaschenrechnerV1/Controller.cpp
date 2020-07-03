@@ -125,7 +125,7 @@ namespace calculator
 		}
 	}
 
-	//returns true
+	//returns true if String is multi-digit-Numer
 	bool Controller::isNumber(std::string pString) {
 		for (int i = 0; i < pString.length(); i++) {
 			if (!isOneDigitNumber(pString[i])) {
@@ -145,8 +145,10 @@ namespace calculator
 	}
 
 	std::string Controller::computeStrings(std::string pLeftString, std::string pRightString, std::string pOperatorString) {
+		if (pOperatorString == "+") {
 
-		//Objekte erzeugen und Berechnen
+		}
+		
 
 	}
 
