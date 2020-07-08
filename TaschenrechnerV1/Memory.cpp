@@ -3,7 +3,7 @@
 namespace calculator
 {
 
-	Memory::Memory(std::string pInput, double pResult) : m_input(pInput), m_result(pResult)
+	Memory::Memory(std::string pInput, std::string pResult) : m_input(pInput), m_result(pResult)
 	{
 	}
 
@@ -16,7 +16,7 @@ namespace calculator
 		return m_input;
 	}
 
-	double Memory::getResult()
+	std::string Memory::getResult()
 	{
 		return m_result;
 	}

@@ -1,4 +1,10 @@
 #include "Controller.h"
+#include "Addtition.h"
+#include "Substraction.h"
+#include "Multiplication.h"
+#include "Division.h"
+#include "Power.h"
+#include "Memory.h"
 #include <iostream>
 #include <vector>
 #include <stack>
@@ -8,9 +14,13 @@
 namespace calculator
 {
 	std::vector<std::string> vInput{};
+<<<<<<< HEAD
 	std::stack<std::string> stack;
 	std::vector<std::string> output;
 	bool Error = false;
+=======
+	std::vector<Memory> vMemory{};
+>>>>>>> 0319cc81701c77a0eead0e69ef3925f06ce4489d
 
 
 	Controller::Controller()
@@ -32,13 +42,16 @@ namespace calculator
 	double Controller::calculate(std::string pInput)
 	{
 		m_input = pInput;
+		
 		//split String, store in Array/Vector
 		splitString(pInput);
 		//Convert String into UPN
 		convertvInputToUPN();
 
 		//(Create Objects and )solve UPN
+		m_result = solveUPN();
 		//Save Input and results in Memory
+		store(m_input, m_result);
 		//Return result
 		return NULL;
 	}
@@ -134,9 +147,7 @@ namespace calculator
 	//shunting-Yard-Algorithm
 	
 
-	void Controller::solveUPN(/*std::vector<std::string> pUPNvector*/) {
-
-		//solveUPN Algorithmus
+	std::string Controller::solveUPN() {
 
 		std::stack<std::string> sStack;
 
@@ -159,8 +170,12 @@ namespace calculator
 				}
 			}
 		}
+<<<<<<< HEAD
 		*/
 		
+=======
+		return sStack.top();
+>>>>>>> 0319cc81701c77a0eead0e69ef3925f06ce4489d
 
 	}
 
@@ -186,7 +201,7 @@ namespace calculator
 		}
 	}
 
-	//returns true
+	//returns true if String is multi-digit-Numer
 	bool Controller::isNumber(std::string pString) {
 		for (int i = 0; i < pString.length(); i++) {
 			if (!isOneDigitNumber(pString[i])) {
@@ -214,6 +229,7 @@ namespace calculator
 		else return false;
 	}
 
+<<<<<<< HEAD
 
 	bool Controller::isOperator(std::string pString){
 		if (pString == "+" || pString == "-" || pString == "*" || pString == "/" || pString == "^") return true;
@@ -221,10 +237,52 @@ namespace calculator
 	}
 
 
+=======
+	//Creates Operation-Objects, runs solve() and the destuctor, returns Solution
+>>>>>>> 0319cc81701c77a0eead0e69ef3925f06ce4489d
 	std::string Controller::computeStrings(std::string pLeftString, std::string pRightString, std::string pOperatorString) {
+		
+		std::string sReturnString = "";
+		std::string::size_type sz;
+		double dLeftNum = std::stod(pLeftString, &sz);
+		double dRightNum = std::stod(pRightString, &sz);
 
+		if (pOperatorString == "+") {
+			calculator::Addition add = calculator::Addition(dLeftNum, dRightNum);
+			sReturnString = add.solve();
+			add.~Addition();
+		}
+		else if (pOperatorString == "-") {
+			calculator::Substraction sub = calculator::Substraction(dLeftNum, dRightNum);
+			sReturnString = sub.solve();
+			sub.~Substraction();
+		}
+		else if (pOperatorString == "*") {
+			calculator::Multiplication mul = calculator::Multiplication(dLeftNum, dRightNum);
+			sReturnString = mul.solve();
+			mul.~Multiplication();
+		}
+		else if (pOperatorString == "/") {
+			calculator::Division div = calculator::Division(dLeftNum, dRightNum);
+			sReturnString = div.solve();
+			div.~Division();
+		}
+		else if (pOperatorString == "^") {
+			calculator::Power pwr = calculator::Power(dLeftNum, dRightNum);
+			sReturnString = pwr.solve();
+			pwr.~Power();
+		}
+		
+		return sReturnString;
+	}
+
+<<<<<<< HEAD
 		//Objekte erzeugen und Berechnen
 		return NULL;
+=======
+	void Controller::store(std::string pInputString, std::string pResultString) {
+		vMemory[vMemory.size()-1] = calculator::Memory(pInputString, pResultString);
+>>>>>>> 0319cc81701c77a0eead0e69ef3925f06ce4489d
 	}
 
 }
