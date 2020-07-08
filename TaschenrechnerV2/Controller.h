@@ -18,7 +18,7 @@ namespace calculator
 		void init();
 
 		/*Is called by GUI if there is an Input. Input is given as String*/
-		double calculate(std::string pInput);
+		QString calculate(std::string pInput);
 		//define Methods
 
 	private:

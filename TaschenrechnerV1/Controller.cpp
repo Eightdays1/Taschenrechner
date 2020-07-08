@@ -16,7 +16,7 @@ namespace calculator
 	std::vector<std::string> vInput{};
 <<<<<<< HEAD
 	std::stack<std::string> stack;
-	std::vector<std::string> output;
+	std::vector<std::string> vOutput;
 	bool Error = false;
 =======
 	std::vector<Memory> vMemory{};

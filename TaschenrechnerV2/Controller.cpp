@@ -6,6 +6,7 @@
 #include "Power.h"
 #include "Memory.h"
 #include "windows.h"
+#include "TaschenrechnerV2.h"
 #include <iostream>
 #include <vector>
 #include <stack>
@@ -17,8 +18,9 @@ namespace calculator
 {
 	std::vector<std::string> vInput{};
 	std::stack<std::string> stack;
-	std::vector<std::string> output;
+	std::vector<std::string> vOutput;
 	bool Error = false;
+	//std::string pInput;
 	std::vector<Memory> vMemory{};
 
 
@@ -33,12 +35,12 @@ namespace calculator
 	//Method for initializing
 	void Controller::init()
 	{
-
-		calculate("20+3-50*8");
+		//calculate("20+35-13*2");
+		//pInput = "20+35-13*2";
 	}
 
 	//Is called by GUI if there is an Input. Input is given as String
-	double Controller::calculate(std::string pInput)
+	QString Controller::calculate(std::string pInput)
 	{
 		m_input = pInput;
 
@@ -50,16 +52,18 @@ namespace calculator
 		//(Create Objects and )solve UPN
 		m_result = solveUPN();
 		//Save Input and results in Memory
-		store(m_input, m_result);
+		store(m_input, m_result);						//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		//Return result
-		return NULL;
+		return QString::fromStdString(m_result);
 	}
 
 	void Controller::splitString(std::string pInputString) {
 
 		std::string sLastNumber = "";
-		for (int i = 0; i < pInputString.length(); i++) {
-			std::string sCurrentElement(1, pInputString[i]);
+		std::string sCurrentElement = "";
+
+		for (int i = 0; i < pInputString.size(); i++) {
+			sCurrentElement = pInputString[i];
 			if (isOneDigitNumber(sCurrentElement)) {
 				if (sLastNumber == "") {
 					sLastNumber = sCurrentElement;
@@ -76,6 +80,9 @@ namespace calculator
 				sLastNumber = "";
 				vInput.push_back(sCurrentElement);
 			}
+		}
+		if (sCurrentElement != "") {
+			vInput.push_back(sCurrentElement);
 		}
 	}
 
@@ -98,7 +105,7 @@ namespace calculator
 							(Precedence(o1, o2) < 0)))
 					{
 						stack.pop();
-						output.push_back(o2);
+						vOutput.push_back(o2);
 
 						if (!stack.empty())
 							o2 = stack.top();
@@ -118,7 +125,7 @@ namespace calculator
 
 				while (topToken != "(")
 				{
-					output.push_back(topToken);
+					vOutput.push_back(topToken);
 					stack.pop();
 
 					if (stack.empty()) break;
@@ -132,14 +139,14 @@ namespace calculator
 			}
 			else
 			{
-				output.push_back(token);
+				vOutput.push_back(token);
 			}
 		}
 
 		while (!stack.empty()) {
 			const std::string stackToken = stack.top();
 			if (stackToken == ")" || stackToken == "(") Error = true;
-			output.push_back(stackToken);
+			vOutput.push_back(stackToken);
 			stack.pop();
 		}
 	}
@@ -153,13 +160,13 @@ namespace calculator
 		std::string sRight = "";
 		std::string sLeft = "";
 		std::string sResult = "";
-		/*
-		for each (std::string sInputString in vInput){
+		
+		for each (std::string sInputString in vOutput){
 			if (isNumber(sInputString)) {
 				sStack.push(sInputString);
 			}
 			else {
-				if (isBinaryOperator(sInputString)) {
+				if (isOperator(sInputString)) {
 					sRight = sStack.top();
 					sStack.pop();
 					sLeft = sStack.top();
@@ -169,7 +176,7 @@ namespace calculator
 				}
 			}
 		}
-		*/
+		
 
 			return sStack.top();
 
@@ -225,51 +232,51 @@ namespace calculator
 		else return false;
 	}
 
-		bool Controller::isOperator(std::string pString) {
-		if (pString == "+" || pString == "-" || pString == "*" || pString == "/" || pString == "^") return true;
-		else return false;
+	bool Controller::isOperator(std::string pString) {
+	if (pString == "+" || pString == "-" || pString == "*" || pString == "/" || pString == "^") return true;
+	else return false;
 	}
 
-		//Creates Operation-Objects, runs solve() and the destuctor, returns Solution
-		std::string Controller::computeStrings(std::string pLeftString, std::string pRightString, std::string pOperatorString) {
+	//Creates Operation-Objects, runs solve() and the destuctor, returns Solution
+	std::string Controller::computeStrings(std::string pLeftString, std::string pRightString, std::string pOperatorString) {
 
-		std::string sReturnString = "";
-		std::string::size_type sz;
-		double dLeftNum = std::stod(pLeftString, &sz);
-		double dRightNum = std::stod(pRightString, &sz);
+	std::string sReturnString = "";
+	std::string::size_type sz;
+	double dLeftNum = std::stod(pLeftString, &sz);
+	double dRightNum = std::stod(pRightString, &sz);
 
-		if (pOperatorString == "+") {
-			calculator::Addition add = calculator::Addition(dLeftNum, dRightNum);
-			sReturnString = add.solve();
-			add.~Addition();
-		}
-		else if (pOperatorString == "-") {
-			calculator::Substraction sub = calculator::Substraction(dLeftNum, dRightNum);
-			sReturnString = sub.solve();
-			sub.~Substraction();
-		}
-		else if (pOperatorString == "*") {
-			calculator::Multiplication mul = calculator::Multiplication(dLeftNum, dRightNum);
-			sReturnString = mul.solve();
-			mul.~Multiplication();
-		}
-		else if (pOperatorString == "/") {
-			calculator::Division div = calculator::Division(dLeftNum, dRightNum);
-			sReturnString = div.solve();
-			div.~Division();
-		}
-		else if (pOperatorString == "^") {
-			calculator::Power pwr = calculator::Power(dLeftNum, dRightNum);
-			sReturnString = pwr.solve();
-			pwr.~Power();
-		}
-
-		return sReturnString;
+	if (pOperatorString == "+") {
+		calculator::Addition add = calculator::Addition(dLeftNum, dRightNum);
+		sReturnString = std::to_string(add.solve());
+		add.~Addition();
+	}
+	else if (pOperatorString == "-") {
+		calculator::Substraction sub = calculator::Substraction(dLeftNum, dRightNum);
+		sReturnString = std::to_string(sub.solve());
+		sub.~Substraction();
+	}
+	else if (pOperatorString == "*") {
+		calculator::Multiplication mul = calculator::Multiplication(dLeftNum, dRightNum);
+		sReturnString = std::to_string(mul.solve());
+		mul.~Multiplication();
+	}
+	else if (pOperatorString == "/") {
+		calculator::Division div = calculator::Division(dLeftNum, dRightNum);
+		sReturnString = std::to_string(div.solve());
+		div.~Division();
+	}
+	else if (pOperatorString == "^") {
+		calculator::Power pwr = calculator::Power(dLeftNum, dRightNum);
+		sReturnString = std::to_string(pwr.solve());
+		pwr.~Power();
 	}
 
-		//Objekte erzeugen und Berechnen
-		void Controller::store(std::string pInputString, std::string pResultString) {
-		vMemory[vMemory.size() - 1] = calculator::Memory(pInputString, pResultString);
+	return sReturnString;
+	}
+
+	//Objekte erzeugen und Berechnen
+	void Controller::store(std::string pInputString, std::string pResultString) {
+	vMemory[vMemory.size() - 1] = calculator::Memory(pInputString, pResultString);
 	}
 
 }
