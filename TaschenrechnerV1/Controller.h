@@ -32,7 +32,10 @@ namespace calculator
 		bool isOneDigitNumber(std::string pString);
 		bool isOneDigitNumber(char pChar);
 		bool isNumber(std::string pString);
-		bool isBinaryOperator(std::string pString);
+		int valuePrecedence(std::string token);
+		int Precedence(std::string token1, std::string token2);
+		bool isLeftAssociative(std::string pString);
+		bool isOperator(std::string pString);
 		std::string computeStrings(std::string pLeftString, std::string pRightString, std::string pOperatorString);
 		
 	};

@@ -3,10 +3,14 @@
 #include <vector>
 #include <stack>
 #include <debugapi.h>
+#include <stdio.h>
 
 namespace calculator
 {
 	std::vector<std::string> vInput{};
+	std::stack<std::string> stack;
+	std::vector<std::string> output;
+	bool Error = false;
 
 
 	Controller::Controller()
@@ -21,7 +25,7 @@ namespace calculator
 	void Controller::init()
 	{
 
-		calculate("20+3");
+		calculate("20+3-50*8");
 	}
 
 	//Is called by GUI if there is an Input. Input is given as String
@@ -32,6 +36,7 @@ namespace calculator
 		splitString(pInput);
 		//Convert String into UPN
 		convertvInputToUPN();
+
 		//(Create Objects and )solve UPN
 		//Save Input and results in Memory
 		//Return result
@@ -56,6 +61,7 @@ namespace calculator
 			}
 			else {
 				vInput.push_back(sLastNumber);
+				sLastNumber = "";
 				vInput.push_back(sCurrentElement);
 			}
 		}
@@ -63,19 +69,70 @@ namespace calculator
 
 	//converts global vInput to UPN-Format(Prefix-notation)
 	void Controller::convertvInputToUPN() {
-		std::stack<std::string> input;
-		std::vector<std::string> output;
+		for (int i = 0; i < vInput.size(); i++)
+		{
+			const std::string token = vInput[i];
 
-		std::string Test;
-		Test = vInput[1];
-		for (auto i : vInput) {
-			
+			if (isOperator(token))
+			{
+				const std::string o1 = token;
 
+				if (!stack.empty())
+				{
+					std::string o2 = stack.top();
+
+					while (isOperator(o2) &&
+						((isLeftAssociative(o1) && Precedence(o1, o2) == 0) ||
+							(Precedence(o1, o2) < 0)))
+					{
+						stack.pop();
+						output.push_back(o2);
+
+						if (!stack.empty())
+							o2 = stack.top();
+						else
+							break;
+					}
+				}
+				stack.push(o1);
+			}
+			else if (token == "(")
+			{
+				stack.push(token);
+			}
+			else if (token == ")")
+			{
+				std::string topToken = stack.top();
+
+				while (topToken != "(")
+				{
+					output.push_back(topToken);
+					stack.pop();
+
+					if (stack.empty()) break;
+					topToken = stack.top();
+				}
+				if (!stack.empty()) stack.pop();
+				if (topToken != "(")
+				{
+					Error = true;
+				}
+			} 
+			else
+			{
+				output.push_back(token);
+			}
 		}
 
-		//shunting-Yard-Algorithm
-
+		while (!stack.empty()){
+			const std::string stackToken = stack.top();
+			if (stackToken == ")" || stackToken == "(") Error = true;
+			output.push_back(stackToken);
+			stack.pop();
+		}
 	}
+	//shunting-Yard-Algorithm
+	
 
 	void Controller::solveUPN(/*std::vector<std::string> pUPNvector*/) {
 
@@ -86,9 +143,8 @@ namespace calculator
 		std::string sRight = "";
 		std::string sLeft = "";
 		std::string sResult = "";
-
-		for each (std::string sInputString in vInput)
-		{
+		/*
+		for each (std::string sInputString in vInput){
 			if (isNumber(sInputString)) {
 				sStack.push(sInputString);
 			}
@@ -103,6 +159,8 @@ namespace calculator
 				}
 			}
 		}
+		*/
+		
 
 	}
 
@@ -138,19 +196,35 @@ namespace calculator
 		return true;
 	}
 
-	bool Controller::isBinaryOperator(std::string pString) {
-		if (pString == "+" || pString == "-" || pString == "*" || pString == "/" || pString == "^") {
-			return true;
-		}
-		else {
-			return false;
-		}
+
+	int Controller::valuePrecedence(std::string token) {
+		if (token == "+") return 0;
+		else if (token == "-") return 0;
+		else if (token == "*") return 5;
+		else if (token == "/") return 5;
 	}
+	
+	int Controller::Precedence(std::string token1, std::string token2) {
+		return valuePrecedence(token1) - valuePrecedence(token2);
+		
+	}
+
+	bool Controller::isLeftAssociative(std::string pString) {
+		if (pString == "+" || pString == "-" || pString == "*" || pString == "/") return true;
+		else return false;
+	}
+
+
+	bool Controller::isOperator(std::string pString){
+		if (pString == "+" || pString == "-" || pString == "*" || pString == "/" || pString == "^") return true;
+		else return false;
+	}
+
 
 	std::string Controller::computeStrings(std::string pLeftString, std::string pRightString, std::string pOperatorString) {
 
 		//Objekte erzeugen und Berechnen
-
+		return NULL;
 	}
 
 }
