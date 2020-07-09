@@ -20,12 +20,15 @@ namespace calculator
 	std::stack<std::string> stack;
 	std::vector<std::string> vOutput;
 	bool Error = false;
-	//std::string pInput;
 	std::vector<Memory*> vMemory;
+	bool bLoadHistory = 0;
+	int iLoadHistoryEntryNr = 0;
+	TaschenrechnerV2* Rechner;
 
 
-	Controller::Controller()
+	Controller::Controller(TaschenrechnerV2 pTaschenrechner)
 	{
+		Rechner = &pTaschenrechner;
 	}
 
 	Controller::~Controller()
@@ -42,6 +45,8 @@ namespace calculator
 	//Is called by GUI if there is an Input. Input is given as String
 	QString Controller::calculate(std::string pInput)
 	{
+		bLoadHistory = 0;
+		iLoadHistoryEntryNr = 0;
 		m_input = pInput;
 
 		//split String, store in Array/Vector
@@ -274,11 +279,33 @@ namespace calculator
 	return sReturnString;
 	}
 
-	//Objekte erzeugen und Berechnen
+	//creates and stores Memory Objects
 	void Controller::store(std::string pInputString, std::string pResultString) {
 			vMemory.emplace_back(&calculator::Memory(pInputString, pResultString));
 	}
 
 	//fkt zum speicher abrufen
+
+	void Controller::load() {
+		if (bLoadHistory) {
+			if (iLoadHistoryEntryNr <= 0) {
+				Rechner->showInput("Keine weitern Einträge");
+				Rechner->showResult("Keine weiteren Einträge");
+				return;
+			}
+			else {
+				iLoadHistoryEntryNr--;
+			}
+
+		}
+		else {
+			iLoadHistoryEntryNr = vMemory.size();
+			bLoadHistory = 1;
+		}
+		Rechner->showInput(vMemory[iLoadHistoryEntryNr]->getInput());
+		Rechner->showResult(vMemory[iLoadHistoryEntryNr]->getResult());
+	}
+
+	
 
 }
