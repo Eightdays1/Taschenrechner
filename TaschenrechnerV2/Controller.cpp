@@ -20,12 +20,13 @@ namespace calculator
 	std::stack<std::string> stack;
 	std::vector<std::string> vOutput;
 	bool Error = false;
-	//std::string pInput;
 	std::vector<Memory*> vMemory;
+	TaschenrechnerV2* Rechner;
 
 
-	Controller::Controller()
+	Controller::Controller(TaschenrechnerV2* pTaschenrechner)
 	{
+		Rechner = pTaschenrechner;
 	}
 
 	Controller::~Controller()

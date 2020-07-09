@@ -10,6 +10,9 @@ class TaschenrechnerV2 : public QMainWindow
 public:
     TaschenrechnerV2(QWidget *parent = Q_NULLPTR);
 
+    showInput(std::string pString);
+    showResult(std::string pString);
+
 private:
     Ui::TaschenrechnerV2Class ui;
 };
