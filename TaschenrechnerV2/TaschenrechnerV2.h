@@ -9,8 +9,26 @@ class TaschenrechnerV2 : public QMainWindow
 
 public:
     TaschenrechnerV2(QWidget *parent = Q_NULLPTR);
-    void showInput(std::string pstring);
-    void showResult(std::string pString);
+    
+    void showInput(QString pstring);
+    void showResult(QString pString);
+
+    void buttonPressed1();
+    void buttonPressed2();
+    void buttonPressed3();
+    void buttonPressed4();
+    void buttonPressed5();
+    void buttonPressed6();
+    void buttonPressed7();
+    void buttonPressed8();
+    void buttonPressed9();
+    void buttonPressed0();
+    void buttonPressedPlus();
+    void buttonPressedMinus();
+    void buttonPressedTimes();
+    void buttonPressedBy();
+    void buttonPressedPower();
+    void buttonPressedEnter();
 
 private:
     Ui::TaschenrechnerV2Class ui;

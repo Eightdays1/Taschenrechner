@@ -23,12 +23,17 @@ namespace calculator
 	std::vector<Memory*> vMemory;
 	bool bLoadHistory = 0;
 	int iLoadHistoryEntryNr = 0;
+	std::string sInputString;
 	TaschenrechnerV2* Rechner;
 
 
 	Controller::Controller(TaschenrechnerV2* pTaschenrechner)
 	{
 		Rechner = pTaschenrechner;
+	}
+
+	Controller::Controller() {
+
 	}
 
 	Controller::~Controller()
@@ -302,10 +307,22 @@ namespace calculator
 			iLoadHistoryEntryNr = vMemory.size();
 			bLoadHistory = 1;
 		}
-		Rechner->showInput(vMemory[iLoadHistoryEntryNr]->getInput());
-		Rechner->showResult(vMemory[iLoadHistoryEntryNr]->getResult());
+		Rechner->showInput(QString::fromStdString(vMemory[iLoadHistoryEntryNr]->getInput()));
+		Rechner->showResult(QString::fromStdString(vMemory[iLoadHistoryEntryNr]->getResult()));
 	}
 
-	
+	void Controller::registerInput(std::string pInput) {
+		if (pInput == "enter") {
+			QString tResult = calculate(sInputString);
+			sInputString = "";
+			Rechner->showResult(tResult);
+		}
+		else if (sInputString == "") {
+			sInputString = pInput;
+		}
+		else {
+			sInputString.append(pInput);
+		}
+	}
 
 }

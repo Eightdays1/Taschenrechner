@@ -3,19 +3,102 @@
 #include "windows.h"
 #include "Controller.h"
 
+std::string sInputString;
+calculator::Controller controller;
+
 TaschenrechnerV2::TaschenrechnerV2(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
-    calculator::Controller c1 = calculator::Controller(this);
-    ui.debugLabel->setText(c1.calculate("20+3-50*8"));
+    controller = calculator::Controller(this);
+    ui.debugLabel->setText(controller.calculate("20+3-50*8"));
 
 }
 
-void TaschenrechnerV2::showInput(std::string pString) {
+void TaschenrechnerV2::showInput(QString pString) {
 
 }
 
-void TaschenrechnerV2::showResult(std::string pString) {
+void TaschenrechnerV2::showResult(QString pString) {
 
+}
+
+void TaschenrechnerV2::buttonPressed1()
+{
+    controller.registerInput("1");
+}
+
+void TaschenrechnerV2::buttonPressed2()
+{
+    controller.registerInput("2");
+}
+
+void TaschenrechnerV2::buttonPressed3()
+{
+    controller.registerInput("3");
+}
+
+void TaschenrechnerV2::buttonPressed4()
+{
+    controller.registerInput("4");
+}
+
+void TaschenrechnerV2::buttonPressed5()
+{
+    controller.registerInput("5");
+}
+
+void TaschenrechnerV2::buttonPressed6()
+{
+    controller.registerInput("6");
+}
+
+void TaschenrechnerV2::buttonPressed7()
+{
+    controller.registerInput("7");
+}
+
+void TaschenrechnerV2::buttonPressed8()
+{
+    controller.registerInput("8");
+}
+
+void TaschenrechnerV2::buttonPressed9()
+{
+    controller.registerInput("9");
+}
+
+void TaschenrechnerV2::buttonPressed0()
+{
+    controller.registerInput("0");
+}
+
+void TaschenrechnerV2::buttonPressedPlus()
+{
+    controller.registerInput("+");
+}
+
+void TaschenrechnerV2::buttonPressedMinus()
+{
+    controller.registerInput("-");
+}
+
+void TaschenrechnerV2::buttonPressedTimes()
+{
+    controller.registerInput("*");
+}
+
+void TaschenrechnerV2::buttonPressedBy()
+{
+    controller.registerInput("/");
+}
+
+void TaschenrechnerV2::buttonPressedPower()
+{
+    controller.registerInput("^");
+}
+
+void TaschenrechnerV2::buttonPressedEnter()
+{
+    controller.registerInput("enter");
 }

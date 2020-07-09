@@ -11,6 +11,7 @@ namespace calculator
 	class Controller
 	{
 	public:
+		Controller();
 		Controller(TaschenrechnerV2* pTaschenrechner);		//Konstruktor
 		~Controller();										//Destruktor
 
@@ -20,6 +21,7 @@ namespace calculator
 		/*Is called by GUI if there is an Input. Input is given as String*/
 		QString calculate(std::string pInput);
 		//define Methods
+		void registerInput(std::string pInput);
 
 	private:
 		//Attributes
