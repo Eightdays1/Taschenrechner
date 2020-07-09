@@ -11,8 +11,8 @@ namespace calculator
 	class Controller
 	{
 	public:
-		Controller();				//Konstruktor
-		~Controller();				//Destruktor
+		Controller(TaschenrechnerV2 pTaschenrechner);		//Konstruktor
+		~Controller();										//Destruktor
 
 		/*Method for initializing*/
 		void init();
@@ -39,6 +39,7 @@ namespace calculator
 		bool isOperator(std::string pString);
 		std::string computeStrings(std::string pLeftString, std::string pRightString, std::string pOperatorString);
 		void store(std::string pInputString, std::string pResultString);
+		void Controller::load();
 
 	};
 }
