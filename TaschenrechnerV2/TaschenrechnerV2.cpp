@@ -16,11 +16,11 @@ TaschenrechnerV2::TaschenrechnerV2(QWidget *parent)
 }
 
 void TaschenrechnerV2::showInput(QString pString) {
-
+    //Ausgabe Input-Feld
 }
 
 void TaschenrechnerV2::showResult(QString pString) {
-
+    //Ausgabe Output-Feld
 }
 
 void TaschenrechnerV2::buttonPressed1()
