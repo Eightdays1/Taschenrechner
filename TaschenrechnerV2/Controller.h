@@ -11,7 +11,7 @@ namespace calculator
 	class Controller
 	{
 	public:
-		Controller(TaschenrechnerV2 pTaschenrechner);		//Konstruktor
+		Controller(TaschenrechnerV2* pTaschenrechner);		//Konstruktor
 		~Controller();										//Destruktor
 
 		/*Method for initializing*/

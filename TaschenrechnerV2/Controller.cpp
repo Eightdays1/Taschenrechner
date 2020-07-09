@@ -26,9 +26,9 @@ namespace calculator
 	TaschenrechnerV2* Rechner;
 
 
-	Controller::Controller(TaschenrechnerV2 pTaschenrechner)
+	Controller::Controller(TaschenrechnerV2* pTaschenrechner)
 	{
-		Rechner = &pTaschenrechner;
+		Rechner = pTaschenrechner;
 	}
 
 	Controller::~Controller()
