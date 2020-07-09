@@ -92,4 +92,13 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Shunting-yard-Algorithmus.eddx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\todo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\solveUPN.png" />
+  </ItemGroup>
 </Project>

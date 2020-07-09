@@ -108,6 +108,15 @@
     <ClInclude Include="Power.h" />
     <ClInclude Include="Substraction.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Shunting-yard-Algorithmus.eddx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\solveUPN.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\todo.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
     <Import Project="$(QtMsBuild)\qt.targets" />

@@ -16,12 +16,12 @@
 
 namespace calculator
 {
-	std::vector<std::string> vInput{};
+	std::vector<std::string> vInput;
 	std::stack<std::string> stack;
 	std::vector<std::string> vOutput;
 	bool Error = false;
 	//std::string pInput;
-	std::vector<Memory> vMemory{};
+	std::vector<Memory*> vMemory;
 
 
 	Controller::Controller()
@@ -52,7 +52,7 @@ namespace calculator
 		//(Create Objects and )solve UPN
 		m_result = solveUPN();
 		//Save Input and results in Memory
-		store(m_input, m_result);						//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		store(m_input, m_result);
 		//Return result
 		return QString::fromStdString(m_result);
 	}
@@ -276,7 +276,9 @@ namespace calculator
 
 	//Objekte erzeugen und Berechnen
 	void Controller::store(std::string pInputString, std::string pResultString) {
-	vMemory[vMemory.size() - 1] = calculator::Memory(pInputString, pResultString);
+			vMemory.emplace_back(&calculator::Memory(pInputString, pResultString));
 	}
+
+	//fkt zum speicher abrufen
 
 }
