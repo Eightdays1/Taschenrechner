@@ -39,7 +39,7 @@ namespace calculator
 		bool isOperator(std::string pString);
 		std::string computeStrings(std::string pLeftString, std::string pRightString, std::string pOperatorString);
 		void store(std::string pInputString, std::string pResultString);
-		void Controller::load()
+		void Controller::load();
 
 	};
 }
