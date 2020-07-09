@@ -8,7 +8,6 @@ TaschenrechnerV2::TaschenrechnerV2(QWidget *parent)
 {
     ui.setupUi(this);
     calculator::Controller c1 = calculator::Controller(this);
-
     ui.debugLabel->setText(c1.calculate("20+3-50*8"));
 
 }
