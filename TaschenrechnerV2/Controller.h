@@ -28,7 +28,7 @@ namespace calculator
 		std::string m_input;
 		std::string m_result;
 
-		//Methods
+		//Methods only used by Methods in "Controller"
 		void splitString(std::string pInputString);
 		void convertvInputToUPN();
 		std::string solveUPN();

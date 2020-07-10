@@ -15,6 +15,8 @@ TaschenrechnerV2::TaschenrechnerV2(QWidget *parent)
 
 }
 
+//Output-Slots
+
 void TaschenrechnerV2::showInput(QString pString) {
     //Ausgabe Input-Feld
 }
@@ -22,6 +24,8 @@ void TaschenrechnerV2::showInput(QString pString) {
 void TaschenrechnerV2::showResult(QString pString) {
     //Ausgabe Output-Feld
 }
+
+//Input-Slots
 
 void TaschenrechnerV2::buttonPressed1()
 {

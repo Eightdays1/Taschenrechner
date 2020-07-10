@@ -10,9 +10,11 @@ class TaschenrechnerV2 : public QMainWindow
 public:
     TaschenrechnerV2(QWidget *parent = Q_NULLPTR);
     
+    //output
     void showInput(QString pstring);
     void showResult(QString pString);
 
+    //input
     void buttonPressed1();
     void buttonPressed2();
     void buttonPressed3();

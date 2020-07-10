@@ -12,3 +12,4 @@
 11.- Controller.cpp - Z.316
 12.- Controller.cpp - Z.20 + 22
 13.- Controller.cpp restliche Helper-Funktionen Kommentieren
+14.- Operation-Klasse richtig schreiben
