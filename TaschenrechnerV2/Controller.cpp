@@ -18,6 +18,7 @@ namespace calculator
 {
 	std::vector<std::string> vInput;			//Input after "splitString"
 	std::vector<std::string> vInputAsUPN;		//Input in Prefix-Notation after "convertToUPN"
+	QString tResult;
 	bool Error = false;
 	std::vector<Memory*> vMemory;				//Stores Pointers to Memory-Objects
 	bool bLoadHistory = 0;						//If 1, a memory-Object was loaded as last action
@@ -263,15 +264,29 @@ namespace calculator
 	//gets Input from TaschenrechnerV2, stores it in global sInputString
 	void Controller::registerInput(std::string pInput) {
 		if (pInput == "enter") {
-			QString tResult = calculate(sInputString);
+			tResult = calculate(sInputString);
 			sInputString = "";
 			calc->showResult(tResult);
 		}
-		else if (sInputString == "") {
-			sInputString = pInput;
-		}
 		else {
+			if (sInputString == "" && !isOperator(pInput)) {
+			sInputString = pInput;
+			}
+			else if (sInputString == "" && isOperator(pInput)) {
+				sInputString = tResult.toStdString() + pInput;
+			}
+			else if (pInput == "clear") {
+				tResult = "0";
+				calc->showResult(tResult);
+				sInputString = "";
+			}
+			else if (pInput == "deleteLastNum") {
+				sInputString = sInputString.substr(0, sInputString.size() - 1);
+			}
+			else {
 			sInputString.append(pInput);
+			}
+			calc->showInput(QString::fromStdString(sInputString));
 		}
 	}
 
@@ -318,7 +333,7 @@ namespace calculator
 		else if (token == "-") return 0;
 		else if (token == "*") return 5;
 		else if (token == "/") return 5;
-//return fehlt
+		return 0;
 	}
 
 	int Controller::Precedence(std::string token1, std::string token2) {

@@ -14,7 +14,9 @@ public:
     void showInput(QString pstring);
     void showResult(QString pString);
 
+private slots:
     //input
+    void buttonPressed0();
     void buttonPressed1();
     void buttonPressed2();
     void buttonPressed3();
@@ -24,13 +26,16 @@ public:
     void buttonPressed7();
     void buttonPressed8();
     void buttonPressed9();
-    void buttonPressed0();
     void buttonPressedPlus();
     void buttonPressedMinus();
     void buttonPressedTimes();
     void buttonPressedBy();
     void buttonPressedPower();
+    void buttonPressedBracketOpen();
+    void buttonPressedBracketClose();
     void buttonPressedEnter();
+    void buttonPressedClear();
+    void buttonPressedDeleteLastNum();
 
 private:
     Ui::TaschenrechnerV2Class ui;
