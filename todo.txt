@@ -6,10 +6,10 @@
 	5. - [nach 2.] Algorithmus für Auswertung UPN ausprogrammieren
 	6. - Fehler bei Methodenaufruf beheben(TaschenrechnerV1.cpp - Line 34 [controller.init();])
 7. - GUI erstellen
-8. - Prüfen, ob (fast) alle Vorlesungsthemen eingearbeitet sind
-9. - Funktionen fürs Speichern/Laden der Historie schreiben
+	8. - Prüfen, ob (fast) alle Vorlesungsthemen eingearbeitet sind
+	9. - Funktionen fürs Speichern/Laden der Historie schreiben
 	10.- POW-Klasse Schreiben und Objekt in Contoller.cpp erzeugen
 11.- Controller.cpp - Z.316
 	12.- Controller.cpp - Z.20 + 22
 13.- Controller.cpp restliche Helper-Funktionen Kommentieren
-14.- Operation-Klasse richtig schreiben
+	14.- Operation-Klasse richtig schreiben
