@@ -313,6 +313,7 @@ namespace calculator
 		else if (token == "-") return 0;
 		else if (token == "*") return 5;
 		else if (token == "/") return 5;
+//return fehlt
 	}
 
 	int Controller::Precedence(std::string token1, std::string token2) {
