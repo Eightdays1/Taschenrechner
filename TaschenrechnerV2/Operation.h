@@ -9,9 +9,8 @@ namespace calculator
 	class Operation
 	{
 	public:
-		Operation(double pNum1, double pNum2);	//Konstruktor
-		Operation();
-		~Operation();							//Destruktor
+		Operation();						//Konstruktor
+		~Operation();						//Destruktor
 
 		//define methods
 		virtual double solve();

@@ -10,6 +10,6 @@
 9. - Funktionen fürs Speichern/Laden der Historie schreiben
 	10.- POW-Klasse Schreiben und Objekt in Contoller.cpp erzeugen
 11.- Controller.cpp - Z.316
-12.- Controller.cpp - Z.20 + 22
+	12.- Controller.cpp - Z.20 + 22
 13.- Controller.cpp restliche Helper-Funktionen Kommentieren
 14.- Operation-Klasse richtig schreiben

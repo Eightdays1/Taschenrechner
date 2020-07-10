@@ -17,14 +17,13 @@
 namespace calculator
 {
 	std::vector<std::string> vInput;			//Input after "splitString"
-	/*Warum Global?*/std::stack<std::string> stack;
 	std::vector<std::string> vInputAsUPN;		//Input in Prefix-Notation after "convertToUPN"
 	bool Error = false;
 	std::vector<Memory*> vMemory;				//Stores Pointers to Memory-Objects
 	bool bLoadHistory = 0;						//If 1, a memory-Object was loaded as last action
 	int iLoadHistoryEntryNr = 0;				//Index of las loaded Memory-Object
 	std::string sInputString;					//Input as String, build by "registerInput"
-	TaschenrechnerV2* calc;						//"Calc" Object
+	TaschenrechnerV2* calc;						//"Calc" Object, im Konstruktor übergeben
 
 
 	Controller::Controller(TaschenrechnerV2* pTaschenrechner)
@@ -38,13 +37,6 @@ namespace calculator
 
 	Controller::~Controller()
 	{
-	}
-
-	//Method for initializing
-	void Controller::init()
-	{
-		//calculate("20+35-13*2");
-		//pInput = "20+35-13*2";
 	}
 
 	//Is called by GUI if there is an Input. Input is given as String
@@ -99,6 +91,7 @@ namespace calculator
 
 	//converts global vInput to UPN-Format(Prefix-notation)
 	void Controller::convertvInputToUPN() {
+		std::stack<std::string> stack;
 		for (int i = 0; i < vInput.size(); i++)
 		{
 			const std::string token = vInput[i];
@@ -200,30 +193,42 @@ namespace calculator
 		double dLeftNum = std::stod(pLeftString, &sz);
 		double dRightNum = std::stod(pRightString, &sz);
 
-		if (pOperatorString == "+") {
-			calculator::Addition add = calculator::Addition(dLeftNum, dRightNum);
-			sReturnString = std::to_string(add.solve());
-			add.~Addition();
+
+		try {
+			if (pOperatorString == "+") {
+				calculator::Addition add = calculator::Addition(dLeftNum, dRightNum);
+				sReturnString = std::to_string(add.solve());
+				add.~Addition();
+			}
+			else if (pOperatorString == "-") {
+				calculator::Substraction sub = calculator::Substraction(dLeftNum, dRightNum);
+				sReturnString = std::to_string(sub.solve());
+				sub.~Substraction();
+			}
+			else if (pOperatorString == "*") {
+				calculator::Multiplication mul = calculator::Multiplication(dLeftNum, dRightNum);
+				sReturnString = std::to_string(mul.solve());
+				mul.~Multiplication();
+			}
+			else if (pOperatorString == "/") {
+				if (dRightNum == 0) {
+					throw std::runtime_error("Math error: Attempted to divide by Zero");
+				}
+				else {
+					calculator::Division div = calculator::Division(dLeftNum, dRightNum);
+					sReturnString = std::to_string(div.solve());
+					div.~Division();
+				}
+			}
+			else if (pOperatorString == "^") {
+				calculator::Power pwr = calculator::Power(dLeftNum, dRightNum);
+				sReturnString = std::to_string(pwr.solve());
+				pwr.~Power();
+			}
 		}
-		else if (pOperatorString == "-") {
-			calculator::Substraction sub = calculator::Substraction(dLeftNum, dRightNum);
-			sReturnString = std::to_string(sub.solve());
-			sub.~Substraction();
-		}
-		else if (pOperatorString == "*") {
-			calculator::Multiplication mul = calculator::Multiplication(dLeftNum, dRightNum);
-			sReturnString = std::to_string(mul.solve());
-			mul.~Multiplication();
-		}
-		else if (pOperatorString == "/") {
-			calculator::Division div = calculator::Division(dLeftNum, dRightNum);
-			sReturnString = std::to_string(div.solve());
-			div.~Division();
-		}
-		else if (pOperatorString == "^") {
-			calculator::Power pwr = calculator::Power(dLeftNum, dRightNum);
-			sReturnString = std::to_string(pwr.solve());
-			pwr.~Power();
+
+		catch (std::runtime_error e) {
+			calc->showResult(QString::fromStdString(e.what()));
 		}
 
 		return sReturnString;

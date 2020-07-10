@@ -15,9 +15,6 @@ namespace calculator
 		Controller(TaschenrechnerV2* pTaschenrechner);		//Konstruktor
 		~Controller();										//Destruktor
 
-		/*Method for initializing*/
-		void init();
-
 		//Is called by GUI if there is an Input. Input is given as String
 		QString calculate(std::string pInput);
 		//define Methods

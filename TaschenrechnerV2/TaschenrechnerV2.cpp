@@ -11,7 +11,7 @@ TaschenrechnerV2::TaschenrechnerV2(QWidget *parent)
 {
     ui.setupUi(this);
     controller = calculator::Controller(this);
-    ui.debugLabel->setText(controller.calculate("20+3-50*8"));
+    ui.debugLabel->setText(controller.calculate("2/0"));
 
 }
 
@@ -23,6 +23,7 @@ void TaschenrechnerV2::showInput(QString pString) {
 
 void TaschenrechnerV2::showResult(QString pString) {
     //Ausgabe Output-Feld
+    ui.debugLabel->setText(pString);
 }
 
 //Input-Slots

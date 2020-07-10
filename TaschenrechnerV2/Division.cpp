@@ -1,4 +1,5 @@
 #include "Division.h"
+#include <stdexcept>
 
 namespace calculator
 {
@@ -12,6 +13,6 @@ namespace calculator
 	}
 	double Division::solve()
 	{
-		return m_Num1 / m_Num2;
+			return m_Num1 / m_Num2;
 	}
 }
