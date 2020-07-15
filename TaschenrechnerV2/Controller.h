@@ -36,9 +36,12 @@ namespace calculator
 		int Precedence(std::string token1, std::string token2);
 		bool isLeftAssociative(std::string pString);
 		bool isOperator(std::string pString);
+		bool isOperator(char pChar);
 		std::string computeStrings(std::string pLeftString, std::string pRightString, std::string pOperatorString);
 		void store(std::string pInputString, std::string pResultString);
 		void Controller::load();
+		std::string StripDecimals(std::string);
+
 
 	};
 }

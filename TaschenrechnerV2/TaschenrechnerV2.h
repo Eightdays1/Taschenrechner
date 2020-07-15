@@ -36,6 +36,7 @@ private slots:
     void buttonPressedEnter();
     void buttonPressedClear();
     void buttonPressedDeleteLastNum();
+    void buttonPressedDot();
 
 private:
     Ui::TaschenrechnerV2Class ui;

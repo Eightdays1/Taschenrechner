@@ -34,6 +34,7 @@ TaschenrechnerV2::TaschenrechnerV2(QWidget *parent)
     connect(ui.pushButton_enter, SIGNAL(released()), this, SLOT(buttonPressedEnter()));
     connect(ui.pushButton_clear, SIGNAL(released()), this, SLOT(buttonPressedClear()));
     connect(ui.pushButton_deleteNum, SIGNAL(released()), this, SLOT(buttonPressedDeleteLastNum()));
+    connect(ui.pushButton_dot, SIGNAL(released()), this, SLOT(buttonPressedDot()));
 
 
 }
@@ -150,4 +151,9 @@ void TaschenrechnerV2::buttonPressedClear()
 void TaschenrechnerV2::buttonPressedDeleteLastNum()
 {
     controller.registerInput("deleteLastNum");
+}
+
+void TaschenrechnerV2::buttonPressedDot()
+{
+    controller.registerInput(".");
 }

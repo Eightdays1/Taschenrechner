@@ -46,14 +46,17 @@ namespace calculator
 		bLoadHistory = 0;
 		iLoadHistoryEntryNr = 0;
 		m_input = pInput;
+		vInput = {};
+		vInputAsUPN = {};
 
 		//split String, store in Array/Vector
 		splitString(pInput);
 		//Convert String into UPN
 		convertvInputToUPN();
-
 		//(Create Objects and )solve UPN
 		m_result = solveUPN();
+		//Strip unnessecarry decimals
+		m_result = StripDecimals(m_result);
 		//Save Input and results in Memory
 		store(m_input, m_result);
 		//Return result
@@ -68,7 +71,7 @@ namespace calculator
 
 		for (int i = 0; i < pInputString.size(); i++) {
 			sCurrentElement = pInputString[i];
-			if (isOneDigitNumber(sCurrentElement)) {
+			if (isOneDigitNumber(sCurrentElement) || sCurrentElement == ".") {
 				if (sLastNumber == "") {
 					sLastNumber = sCurrentElement;
 				}
@@ -85,8 +88,8 @@ namespace calculator
 				vInput.push_back(sCurrentElement);
 			}
 		}
-		if (sCurrentElement != "") {
-			vInput.push_back(sCurrentElement);
+		if (sLastNumber != "") {
+			vInput.push_back(sLastNumber);
 		}
 	}
 
@@ -264,28 +267,37 @@ namespace calculator
 	//gets Input from TaschenrechnerV2, stores it in global sInputString
 	void Controller::registerInput(std::string pInput) {
 		if (pInput == "enter") {
-			tResult = calculate(sInputString);
-			sInputString = "";
+			if (sInputString != "") {
+				tResult = calculate(sInputString);
+				calc->showInput(QString::fromStdString(sInputString));
+				sInputString = "";
+				calc->showResult(tResult);
+			}
+		}
+		else if (pInput == "clear") {
+			tResult = "0";
 			calc->showResult(tResult);
+			sInputString = "";
+			calc->showInput(QString::fromStdString(sInputString));
+		}
+		else if (pInput == "deleteLastNum") {
+			sInputString = sInputString.substr(0, sInputString.size() - 1);
+			calc->showInput(QString::fromStdString(sInputString));
+		}
+		else if ((sInputString == "" || isOperator(sInputString[sInputString.size()])) && pInput == ".")  {
+			sInputString = "0.";
+			calc->showInput(QString::fromStdString(sInputString));
+		}
+		else if (sInputString == "" && !isOperator(pInput)) {
+			sInputString = pInput;
+			calc->showInput(QString::fromStdString(sInputString));
+		}
+		else if (sInputString == "" && isOperator(pInput)) {
+			sInputString = tResult.toStdString() + pInput;
+			calc->showInput(QString::fromStdString(sInputString));
 		}
 		else {
-			if (sInputString == "" && !isOperator(pInput)) {
-			sInputString = pInput;
-			}
-			else if (sInputString == "" && isOperator(pInput)) {
-				sInputString = tResult.toStdString() + pInput;
-			}
-			else if (pInput == "clear") {
-				tResult = "0";
-				calc->showResult(tResult);
-				sInputString = "";
-			}
-			else if (pInput == "deleteLastNum") {
-				sInputString = sInputString.substr(0, sInputString.size() - 1);
-			}
-			else {
 			sInputString.append(pInput);
-			}
 			calc->showInput(QString::fromStdString(sInputString));
 		}
 	}
@@ -320,14 +332,14 @@ namespace calculator
 	//returns true if String is multi-digit-Numer
 	bool Controller::isNumber(std::string pString) {
 		for (int i = 0; i < pString.length(); i++) {
-			if (!isOneDigitNumber(pString[i])) {
+			if (!isOneDigitNumber(pString[i]) && pString[i] != '.') {
 				return false;
 			}
 		}
 		return true;
 	}
 
-
+	//returns int accounting to Precedence of Operator
 	int Controller::valuePrecedence(std::string token) {
 		if (token == "+") return 0;
 		else if (token == "-") return 0;
@@ -336,11 +348,12 @@ namespace calculator
 		return 0;
 	}
 
+	//returns int accounting to difference of Precedences of Operator
 	int Controller::Precedence(std::string token1, std::string token2) {
 		return valuePrecedence(token1) - valuePrecedence(token2);
-
 	}
 
+	//returns true if Oerator is left-associative
 	bool Controller::isLeftAssociative(std::string pString) {
 		if (pString == "+" || pString == "-" || pString == "*" || pString == "/") return true;
 		else return false;
@@ -355,4 +368,42 @@ namespace calculator
 			return false;
 		}
 	}
+
+	//returns true if Char is Operator
+	bool Controller::isOperator(char pChar) {
+		if (pChar == '+' || pChar == '-' || pChar == '*' || pChar == '/' || pChar == '^') {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	//Strips appending Zeros after Decimalpoint
+	std::string Controller::StripDecimals(std::string pString) {
+		bool bFoundDot = false;
+		bool bFoundNotZeroDigit = false;
+		for each (char c in pString) {
+			if (c == '.') {
+				bFoundDot = true;
+				break;
+			}
+		}
+		if (bFoundDot) {
+			for (int i = pString.size() - 1; i >= 0; i--) {
+				if (pString[i] != '0' && pString[i] != '.') {
+					bFoundNotZeroDigit = true;
+				}
+				else if (bFoundNotZeroDigit == false && (pString[i] == '0' || pString[i] == '.')) {
+					if (pString[i] == '.') {
+						bFoundNotZeroDigit = true;
+					}
+					pString.pop_back();
+				}
+			}
+		}
+		return pString;
+	}
+
+
 }
