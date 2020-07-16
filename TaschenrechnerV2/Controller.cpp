@@ -267,8 +267,8 @@ namespace calculator
 	void Controller::load() {
 		if (bLoadHistory) {
 			if (iLoadHistoryEntryNr <= 0) {
-				calc->showInput("Keine weitern Einträge");
-				calc->showResult("Keine weiteren Einträge");
+				calc->showInput("Keine weitern Eintraege");
+				calc->showResult("");
 				return;
 			}
 			else {
@@ -276,9 +276,14 @@ namespace calculator
 			}
 
 		}
-		else {
-			iLoadHistoryEntryNr = vMemory.size();
+		else if (vMemory.size() > 0) {
+			iLoadHistoryEntryNr = vMemory.size() - 1;
 			bLoadHistory = true;
+		}
+		else {
+			calc->showInput("Keine weitern Eintraege");
+			calc->showResult("");
+			return;
 		}
 
 		calc->showInput(QString::fromStdString(vMemory[iLoadHistoryEntryNr]->getInput()));
