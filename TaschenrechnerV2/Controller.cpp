@@ -306,7 +306,7 @@ namespace calculator
 	void Controller::load() {
 		if (bLoadHistory) {
 			if (iLoadHistoryEntryNr <= 0) {
-				calc->showInput("Keine weiteren Eintraege");
+				showInputOnGUI("Keine weiteren Eintraege");
 				calc->showResult("");
 				return;
 			}
@@ -320,12 +320,12 @@ namespace calculator
 			bLoadHistory = true;
 		}
 		else {
-			calc->showInput("Keine weitern Eintraege");
+			showInputOnGUI("Keine weitern Eintraege");
 			calc->showResult("");
 			return;
 		}
 
-		calc->showInput(QString::fromStdString(vMemory[iLoadHistoryEntryNr]->getInput()));
+		showInputOnGUI(QString::fromStdString(vMemory[iLoadHistoryEntryNr]->getInput()));
 		calc->showResult(QString::fromStdString(vMemory[iLoadHistoryEntryNr]->getResult()));
 	}
 
@@ -334,7 +334,7 @@ namespace calculator
 		if (pInput == "enter") {
 			if (sInputString != "") {
 				tResult = calculate(sInputString);
-				calc->showInput(QString::fromStdString(sInputString));
+				showInputOnGUI(QString::fromStdString(sInputString));
 				sInputString = "";
 				calc->showResult(tResult);
 			}
@@ -343,38 +343,40 @@ namespace calculator
 			tResult = "0";
 			calc->showResult(tResult);
 			sInputString = "";
-			calc->showInput(QString::fromStdString(sInputString));
+			showInputOnGUI(QString::fromStdString(sInputString));
 		}
 		else if (pInput == "deleteLastNum") {
 			sInputString = sInputString.substr(0, sInputString.size() - 1);
-			calc->showInput(QString::fromStdString(sInputString));
+			showInputOnGUI(QString::fromStdString(sInputString));
 		}
 		else if (pInput == "history") {
 			load();
 		}
 		else if (pInput == "ans") {
-			sInputString.append(tResult.toStdString());
-			calc->showInput(QString::fromStdString(sInputString));
+			sInputString = vMemory[vMemory.size() - 1]->getResult();
+
+			//sInputString.append(tResult.toStdString());
+			showInputOnGUI(QString::fromStdString(sInputString));
 		}
 		else if (pInput == "(" && sInputString.size() != 0 && isOneDigitNumber(sInputString.back()) ) {
 			sInputString.append("*(");
-			calc->showInput(QString::fromStdString(sInputString));
+			showInputOnGUI(QString::fromStdString(sInputString));
 		}
 		else if ((sInputString == "" || isOperator(sInputString[sInputString.size()])) && pInput == ".")  {
 			sInputString = "0.";
-			calc->showInput(QString::fromStdString(sInputString));
+			showInputOnGUI(QString::fromStdString(sInputString));
 		}
 		else if (sInputString == "" && !isOperator(pInput)) {
 			sInputString = pInput;
-			calc->showInput(QString::fromStdString(sInputString));
+			showInputOnGUI(QString::fromStdString(sInputString));
 		}
 		else if (sInputString == "" && isOperator(pInput)) {
 			sInputString = tResult.toStdString() + pInput;
-			calc->showInput(QString::fromStdString(sInputString));
+			showInputOnGUI(QString::fromStdString(sInputString));
 		}
 		else {
 			sInputString.append(pInput);
-			calc->showInput(QString::fromStdString(sInputString));
+			showInputOnGUI(QString::fromStdString(sInputString));
 		}
 	}
 
@@ -486,4 +488,12 @@ namespace calculator
 	}
 
 
+	void Controller::showInputOnGUI(QString pString) {
+		for (int i = 0; i < pString.length(); i++) {
+			if (pString[i] == 'X') {
+				pString[i] = '-';
+			}
+		}
+		calc->showInput(pString);
+	}
 }
