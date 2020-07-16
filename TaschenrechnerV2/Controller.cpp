@@ -48,12 +48,13 @@ namespace calculator
 		m_input = pInput;
 		vInput = {};
 		vInputAsUPN = {};
+		Error = false;
 
 		//split String, store in Array/Vector
 		splitString(pInput);
 		//Check for Syntaxerror
-		if (vInput.size() > 1) {
-			checkSyntax();
+		checkSyntax();
+		if (!Error) {
 			//Convert String into UPN
 			convertvInputToUPN();
 			//(Create Objects and )solve UPN
@@ -62,11 +63,8 @@ namespace calculator
 			m_result = StripDecimals(m_result);
 			//Save Input and results in Memory
 		}
-		else if (isOneDigitNumber(vInput[0]) && vInput.size() == 1) {
-			m_result = StripDecimals(vInput[0]);
-		}
 		else {
-			Error = true;
+			m_result = "Syntax Error";
 		}
 		store(m_input, m_result);
 		//Return result
@@ -74,12 +72,30 @@ namespace calculator
 	}
 
 	void Controller::checkSyntax() {
-		std::string test = "";
-		//Check for "x/0"
-		for (int i = 1; i < vInput.size(); i++) {
-			if (vInput[i - 1] == "/" && vInput[i] == "0") {
+		int i, y;
+		if (vInput.size() > 1) {
+			for (i = 1; i < vInput.size(); i++) {
+				y = i - 1;
+				//Check for "x/0"
+				if (vInput[y] == "/" && vInput[i] == "0") {
+					Error = true;
+				}
+				//Check for double Operator
+				else if (isOperator(vInput[y]) && isOperator(vInput[i])) {
+					Error = true;
+				}
+				//Check for empty brackets
+				else if (vInput[y] == "(" && vInput[i] == ")") {
+					Error = true;
+				}
+			}
+			if (isOperator(vInput[vInput.size() - 1])) {
 				Error = true;
 			}
+		}
+		//Check for only one Operator as Input
+		else if (!isOneDigitNumber(vInput[0]) && vInput.size() == 1) {
+			Error = true;
 		}
 	}
 
@@ -310,6 +326,10 @@ namespace calculator
 		}
 		else if (pInput == "ans") {
 			sInputString.append(tResult.toStdString());
+			calc->showInput(QString::fromStdString(sInputString));
+		}
+		else if (pInput == "(" && isOneDigitNumber(sInputString.back())) {
+			sInputString.append("*(");
 			calc->showInput(QString::fromStdString(sInputString));
 		}
 		else if ((sInputString == "" || isOperator(sInputString[sInputString.size()])) && pInput == ".")  {
