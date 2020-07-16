@@ -38,6 +38,7 @@ TaschenrechnerV2::TaschenrechnerV2(QWidget *parent)
     connect(ui.pushButton_dot, SIGNAL(released()), this, SLOT(buttonPressedDot()));
     connect(ui.pushButton_history, SIGNAL(released()), this, SLOT(buttonPressedHistory()));
     connect(ui.pushButton_ans, SIGNAL(released()), this, SLOT(buttonPressedAns()));
+    connect(ui.pushButton_changeNum, SIGNAL(released()), this, SLOT(buttonPressedChangeSign()));
 }
 
 //KeyEvent if key is released
@@ -196,3 +197,9 @@ void TaschenrechnerV2::buttonPressedAns()
 {
     controller.registerInput("ans");
 }
+
+void TaschenrechnerV2::buttonPressedChangeSign()
+{
+    controller.registerInput("X");
+}
+

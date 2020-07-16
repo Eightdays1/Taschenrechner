@@ -109,7 +109,7 @@ namespace calculator
 			}
 		}
 		//Check for only one Operator as Input
-		else if (!isOneDigitNumber(vInput[0]) && vInput.size() == 1) {
+		else if (!isNumber(vInput[0]) && vInput.size() == 1) {
 			Error = true;
 		}
 	}
@@ -119,9 +119,16 @@ namespace calculator
 
 		std::string sLastNumber = "";
 		std::string sCurrentElement = "";
+		bool bNegativeValue = false;
 
 		for (int i = 0; i < pInputString.size(); i++) {
 			sCurrentElement = pInputString[i];
+			//Check for negative Value
+			if (sCurrentElement == "X") {
+				bNegativeValue = true;
+				continue;
+			}
+			//Number
 			if (isOneDigitNumber(sCurrentElement) || sCurrentElement == ".") {
 				if (sLastNumber == "") {
 					sLastNumber = sCurrentElement;
@@ -130,17 +137,33 @@ namespace calculator
 					sLastNumber.append(sCurrentElement);
 				}
 			}
+			//Operator
 			else if (sLastNumber == "") {
 				vInput.push_back(sCurrentElement);
 			}
+			//Operator afer Number
 			else {
-				vInput.push_back(sLastNumber);
+				if (bNegativeValue == true) {
+					vInput.push_back("-" + sLastNumber);
+				}
+				else {
+					vInput.push_back(sLastNumber);
+				}
 				sLastNumber = "";
+				bNegativeValue = false;
 				vInput.push_back(sCurrentElement);
+
+
+				
 			}
 		}
 		if (sLastNumber != "") {
-			vInput.push_back(sLastNumber);
+			if (bNegativeValue == true) {
+				vInput.push_back("-" + sLastNumber);
+			}
+			else {
+				vInput.push_back(sLastNumber);
+			}
 		}
 	}
 
@@ -298,7 +321,7 @@ namespace calculator
 	void Controller::load() {
 		if (bLoadHistory) {
 			if (iLoadHistoryEntryNr <= 0) {
-				calc->showInput("Keine weiteren Eintraege");
+				showInputOnGUI("Keine weiteren Eintraege");
 				calc->showResult("");
 				return;
 			}
@@ -312,12 +335,12 @@ namespace calculator
 			bLoadHistory = true;
 		}
 		else {
-			calc->showInput("Keine weitern Eintraege");
+			showInputOnGUI("Keine weitern Eintraege");
 			calc->showResult("");
 			return;
 		}
 
-		calc->showInput(QString::fromStdString(vMemory[iLoadHistoryEntryNr]->getInput()));
+		showInputOnGUI(QString::fromStdString(vMemory[iLoadHistoryEntryNr]->getInput()));
 		calc->showResult(QString::fromStdString(vMemory[iLoadHistoryEntryNr]->getResult()));
 	}
 
@@ -326,7 +349,7 @@ namespace calculator
 		if (pInput == "enter") {
 			if (sInputString != "") {
 				tResult = calculate(sInputString);
-				calc->showInput(QString::fromStdString(sInputString));
+				showInputOnGUI(QString::fromStdString(sInputString));
 				sInputString = "";
 				calc->showResult(tResult);
 			}
@@ -335,38 +358,40 @@ namespace calculator
 			tResult = "0";
 			calc->showResult(tResult);
 			sInputString = "";
-			calc->showInput(QString::fromStdString(sInputString));
+			showInputOnGUI(QString::fromStdString(sInputString));
 		}
 		else if (pInput == "deleteLastNum") {
 			sInputString = sInputString.substr(0, sInputString.size() - 1);
-			calc->showInput(QString::fromStdString(sInputString));
+			showInputOnGUI(QString::fromStdString(sInputString));
 		}
 		else if (pInput == "history") {
 			load();
 		}
 		else if (pInput == "ans") {
-			sInputString.append(tResult.toStdString());
-			calc->showInput(QString::fromStdString(sInputString));
+			sInputString = vMemory[vMemory.size() - 1]->getResult();
+
+			//sInputString.append(tResult.toStdString());
+			showInputOnGUI(QString::fromStdString(sInputString));
 		}
 		else if (pInput == "(" && sInputString.size() != 0 && (isOneDigitNumber(sInputString.back()) || sInputString.back() == ')' )) {
 			sInputString.append("*(");
-			calc->showInput(QString::fromStdString(sInputString));
+			showInputOnGUI(QString::fromStdString(sInputString));
 		}
 		else if ((sInputString == "" || isOperator(sInputString[sInputString.size()])) && pInput == ".")  {
 			sInputString = "0.";
-			calc->showInput(QString::fromStdString(sInputString));
+			showInputOnGUI(QString::fromStdString(sInputString));
 		}
 		else if (sInputString == "" && !isOperator(pInput)) {
 			sInputString = pInput;
-			calc->showInput(QString::fromStdString(sInputString));
+			showInputOnGUI(QString::fromStdString(sInputString));
 		}
 		else if (sInputString == "" && isOperator(pInput)) {
 			sInputString = tResult.toStdString() + pInput;
-			calc->showInput(QString::fromStdString(sInputString));
+			showInputOnGUI(QString::fromStdString(sInputString));
 		}
 		else {
 			sInputString.append(pInput);
-			calc->showInput(QString::fromStdString(sInputString));
+			showInputOnGUI(QString::fromStdString(sInputString));
 		}
 	}
 
@@ -399,7 +424,11 @@ namespace calculator
 
 	//returns true if String is multi-digit-Numer
 	bool Controller::isNumber(std::string pString) {
-		for (int i = 0; i < pString.length(); i++) {
+		int i = 0;
+		if (pString[0] == '-') {
+			i = 1;
+		}
+		for (i; i < pString.length(); i++) {
 			if (!isOneDigitNumber(pString[i]) && pString[i] != '.') {
 				return false;
 			}
@@ -474,4 +503,12 @@ namespace calculator
 	}
 
 
+	void Controller::showInputOnGUI(QString pString) {
+		for (int i = 0; i < pString.length(); i++) {
+			if (pString[i] == 'X') {
+				pString[i] = '-';
+			}
+		}
+		calc->showInput(pString);
+	}
 }

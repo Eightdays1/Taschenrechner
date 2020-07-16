@@ -44,6 +44,7 @@ private slots:
     void buttonPressedDot();
     void buttonPressedHistory();
     void buttonPressedAns();
+    void buttonPressedChangeSign();
 
 private:
     Ui::TaschenrechnerV2Class ui;

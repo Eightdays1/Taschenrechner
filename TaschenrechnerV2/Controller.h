@@ -42,6 +42,7 @@ namespace calculator
 		void store(std::string pInputString, std::string pResultString);
 		void Controller::load();
 		std::string StripDecimals(std::string);
+		void showInputOnGUI(QString pString);
 
 
 	};
