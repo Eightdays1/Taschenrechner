@@ -62,18 +62,32 @@ namespace calculator
 			//Strip unnessecarry decimals
 			m_result = StripDecimals(m_result);
 			//Save Input and results in Memory
+			store(m_input, m_result);
 		}
 		else {
 			m_result = "Syntax Error";
 		}
-		store(m_input, m_result);
 		//Return result
 		return QString::fromStdString(m_result);
 	}
 
 	void Controller::checkSyntax() {
-		int i, y;
+		int i, y, x = 0;
 		if (vInput.size() > 1) {
+			for (i = 0; i < vInput.size(); i++) {
+				if (vInput[i] == "(") {
+					x++;
+				}
+				else if (vInput[i] == ")") {
+					x--;
+				}
+				if (x < 0) {
+					Error = true;
+				}
+			}
+			if (x != 0) {
+				Error = true;
+			}
 			for (i = 1; i < vInput.size(); i++) {
 				y = i - 1;
 				//Check for "x/0"
@@ -89,6 +103,7 @@ namespace calculator
 					Error = true;
 				}
 			}
+			//Check if the last character is an operator
 			if (isOperator(vInput[vInput.size() - 1])) {
 				Error = true;
 			}
@@ -333,7 +348,7 @@ namespace calculator
 			sInputString.append(tResult.toStdString());
 			calc->showInput(QString::fromStdString(sInputString));
 		}
-		else if (pInput == "(" && sInputString.size() != 0 && isOneDigitNumber(sInputString.back()) ) {
+		else if (pInput == "(" && sInputString.size() != 0 && (isOneDigitNumber(sInputString.back()) || sInputString.back() == ')' )) {
 			sInputString.append("*(");
 			calc->showInput(QString::fromStdString(sInputString));
 		}

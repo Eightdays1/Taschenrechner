@@ -196,4 +196,3 @@ void TaschenrechnerV2::buttonPressedAns()
 {
     controller.registerInput("ans");
 }
-

@@ -1,4 +1,5 @@
 <RCC>
-    <qresource prefix="TaschenrechnerV2">
-    </qresource>
+  <qresource prefix="TaschenrechnerV2">
+    <file>Image1.bmp</file>
+  </qresource>
 </RCC>
