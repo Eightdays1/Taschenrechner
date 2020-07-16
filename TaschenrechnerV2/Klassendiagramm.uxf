@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>903</x>
+      <y>266</y>
+      <w>182</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>Controller
+--
+-Text_Vector vInput;
+-Text_Vector vInputAsUPN;
+-QString tResult;
+-Bool Error;
+-MemoryPointer_Vector vMemory;
+-Bool bLoadHistory;
+-GZ iLoadHistoryEntryNr;
+-Text sInputString
+-TaschenrechnerV2* calc
+--
++Controller();
++Controller(TaschenrechnerV2*);
++~Controller;
+-checkSyntax():void;
+-splitString(Text):void;
+-convertInputToUPN():void;
+-solveUPN():Text;
+-isOneDigitNumber(Text):Bool;
+-isOneDigitNumber(Zeichen):Bool;
+-isNumber(Text):Bool;
+-valuePrecedence(Text):GZ;
+-Precedence(Text, Text):GZ;
+-isLeftAssociative(Text):Bool;
+-isOperator(Text):Bool;
+-isOperator(Zeichen):Bool;
+-computeStrings(Text, Text, Text):Text;
+-store(Text, Text):void;
+-load():void;
+-stripDecimals(Text):Text;
+-showInputOnGUI(QString):void;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1218</x>
+      <y>266</y>
+      <w>175</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>TaschenrechnerV2
+--
+-TaschenrechnerV2Class;
+--
++TaschenrechnerV2(QWidget);
++showInput(QString):void;
++showResult(QString):void;
+#keyReleaseEvent(QKeyEvent*):void;
+-buttonPressed0():void;
+-buttonPressed1():void;
+-buttonPressed2():void;
+-buttonPressed3():void;
+-buttonPressed4():void;
+-buttonPressed5():void;
+-buttonPressed6():void;
+-buttonPressed7():void;
+-buttonPressed8():void;
+-buttonPressed9():void;
+-buttonPressedPlus():void;
+-buttonPressedMinus():void;
+-buttonPressedTimes():void;
+-buttonPressedBy():void;
+-buttonPressedPower():void;
+-buttonPressedBracketOpen():void;
+-buttonPressedBracketClose():void;
+-buttonPressedEnter():void;
+-buttonPressedClear():void;
+-buttonPressedDeleteLastNum():void;
+-buttonPressedDot():void;
+-buttonPressedHistory():void;
+-buttonPressedAns():void;
+-buttonPressedChangeSign():void;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>686</x>
+      <y>315</y>
+      <w>147</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>Power
+--
++Power(FKZ, FKZ);
++~Power();
++solve():FKZ;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>224</x>
+      <y>315</y>
+      <w>147</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>Substraction
+--
++Substraction(FKZ, FKZ);
++~Substraction();
++solve():FKZ;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>378</x>
+      <y>315</y>
+      <w>147</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>Multiplication
+--
++Multiplication(FKZ, FKZ);
++~Multiplication();
++solve():FKZ;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>532</x>
+      <y>315</y>
+      <w>147</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>Division
+--
++Division(FKZ, FKZ);
++~Division();
++solve():FKZ;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>70</x>
+      <y>315</y>
+      <w>147</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>Addition
+--
++Addition(FKZ, FKZ);
++~Addition();
++solve():FKZ;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>938</x>
+      <y>672</y>
+      <w>147</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>Memory
+--
+-Text m_result;
+-Text m_input;
+--
++Memory(Text, Text);
++Memory();
++getInput():Text;
++getResult():Text;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>518</x>
+      <y>28</y>
+      <w>147</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>/Operation virtual/
+--
++Operation();
++~Operation();
++solve():FKZ virtual;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>140</x>
+      <y>154</y>
+      <w>469</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>650.0;10.0;650.0;130.0;10.0;130.0;10.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>448</x>
+      <y>154</y>
+      <w>161</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>210.0;10.0;210.0;130.0;10.0;130.0;10.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>294</x>
+      <y>154</y>
+      <w>315</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>430.0;10.0;430.0;130.0;10.0;130.0;10.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>588</x>
+      <y>154</y>
+      <w>189</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0;250.0;130.0;250.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>588</x>
+      <y>154</y>
+      <w>35</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0;30.0;130.0;30.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>756</x>
+      <y>441</y>
+      <w>161</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0;210.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1008</x>
+      <y>609</y>
+      <w>21</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>595</x>
+      <y>441</y>
+      <w>322</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0;440.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>441</x>
+      <y>441</y>
+      <w>322</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0;440.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>294</x>
+      <y>441</y>
+      <w>322</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0;440.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>133</x>
+      <y>441</y>
+      <w>322</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0;440.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1078</x>
+      <y>441</y>
+      <w>154</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;200.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1078</x>
+      <y>441</y>
+      <w>154</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>200.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>1505</x>
+      <y>399</y>
+      <w>42</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>Actor</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1386</x>
+      <y>413</y>
+      <w>126</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;20.0;160.0;20.0</additional_attributes>
+  </element>
+</diagram>
