@@ -104,9 +104,16 @@ namespace calculator
 
 		std::string sLastNumber = "";
 		std::string sCurrentElement = "";
+		bool bNegativeValue = false;
 
 		for (int i = 0; i < pInputString.size(); i++) {
 			sCurrentElement = pInputString[i];
+			//Check for negative Value
+			if (sCurrentElement == "X") {
+				bNegativeValue = true;
+				continue;
+			}
+			//Number
 			if (isOneDigitNumber(sCurrentElement) || sCurrentElement == ".") {
 				if (sLastNumber == "") {
 					sLastNumber = sCurrentElement;
@@ -115,17 +122,33 @@ namespace calculator
 					sLastNumber.append(sCurrentElement);
 				}
 			}
+			//Operator
 			else if (sLastNumber == "") {
 				vInput.push_back(sCurrentElement);
 			}
+			//Operator afer Number
 			else {
-				vInput.push_back(sLastNumber);
+				if (bNegativeValue == true) {
+					vInput.push_back("-" + sLastNumber);
+				}
+				else {
+					vInput.push_back(sLastNumber);
+				}
 				sLastNumber = "";
+				bNegativeValue = false;
 				vInput.push_back(sCurrentElement);
+
+
+				
 			}
 		}
 		if (sLastNumber != "") {
-			vInput.push_back(sLastNumber);
+			if (bNegativeValue == true) {
+				vInput.push_back("-" + sLastNumber);
+			}
+			else {
+				vInput.push_back(sLastNumber);
+			}
 		}
 	}
 
