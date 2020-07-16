@@ -3,8 +3,10 @@
 namespace calculator
 {
 
-	Memory::Memory(std::string pInput, std::string pResult) : m_input(pInput), m_result(pResult)
+	Memory::Memory(std::string pInput, std::string pResult)
 	{
+		this->m_input = pInput;
+		this->m_result = pResult;
 	}
 
 	Memory::~Memory()

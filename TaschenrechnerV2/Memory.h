@@ -16,9 +16,10 @@ namespace calculator
 		std::string getInput();
 		std::string getResult();
 
-	private:
 		std::string m_result;
 		std::string m_input;
+	private:
+		
 	};
 }
 

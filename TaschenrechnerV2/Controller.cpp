@@ -240,7 +240,7 @@ namespace calculator
 
 	//creates and stores Memory Objects
 	void Controller::store(std::string pInputString, std::string pResultString) {
-		vMemory.emplace_back(&calculator::Memory(pInputString, pResultString));
+		vMemory.emplace_back(new calculator::Memory(pInputString, pResultString));
 	}
 
 	//loads next History-Elemt with each successive call
@@ -304,7 +304,7 @@ namespace calculator
 
 
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	//HELPER-FUNKTIONS
+	//HELPER-FUNCTIONS
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	//returns true if String is one-digit Number
