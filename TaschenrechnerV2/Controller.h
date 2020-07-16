@@ -40,8 +40,8 @@ namespace calculator
 		bool isOperator(char pChar);
 		std::string computeStrings(std::string pLeftString, std::string pRightString, std::string pOperatorString);
 		void store(std::string pInputString, std::string pResultString);
-		void Controller::load();
-		std::string StripDecimals(std::string);
+		void load();
+		std::string stripDecimals(std::string);
 		void showInputOnGUI(QString pString);
 
 

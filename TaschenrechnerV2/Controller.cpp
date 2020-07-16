@@ -60,7 +60,7 @@ namespace calculator
 			//(Create Objects and )solve UPN
 			m_result = solveUPN();
 			//Strip unnessecarry decimals
-			m_result = StripDecimals(m_result);
+			m_result = stripDecimals(m_result);
 			//Save Input and results in Memory
 			store(m_input, m_result);
 		}
@@ -482,7 +482,7 @@ namespace calculator
 	}
 
 	//Strips appending Zeros after Decimalpoint
-	std::string Controller::StripDecimals(std::string pString) {
+	std::string Controller::stripDecimals(std::string pString) {
 		bool bFoundDot = false;
 		bool bFoundNotZeroDigit = false;
 		for each (char c in pString) {
