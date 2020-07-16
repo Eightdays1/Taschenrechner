@@ -183,8 +183,8 @@ namespace calculator
 					std::string o2 = stack.top();
 
 					while (isOperator(o2) &&
-						((isLeftAssociative(o1) && Precedence(o1, o2) == 0) ||
-							(Precedence(o1, o2) < 0)))
+						((isLeftAssociative(o1) && precedence(o1, o2) == 0) ||
+							(precedence(o1, o2) < 0)))
 					{
 						stack.pop();
 						vInputAsUPN.push_back(o2);
@@ -451,7 +451,7 @@ namespace calculator
 	}
 
 	//returns int accounting to difference of Precedences of Operator
-	int Controller::Precedence(std::string token1, std::string token2) {
+	int Controller::precedence(std::string token1, std::string token2) {
 		return valuePrecedence(token1) - valuePrecedence(token2);
 	}
 

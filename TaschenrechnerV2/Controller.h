@@ -34,7 +34,7 @@ namespace calculator
 		bool isOneDigitNumber(char pChar);
 		bool isNumber(std::string pString);
 		int valuePrecedence(std::string token);
-		int Precedence(std::string token1, std::string token2);
+		int precedence(std::string token1, std::string token2);
 		bool isLeftAssociative(std::string pString);
 		bool isOperator(std::string pString);
 		bool isOperator(char pChar);
