@@ -94,7 +94,7 @@ namespace calculator
 			}
 		}
 		//Check for only one Operator as Input
-		else if (!isOneDigitNumber(vInput[0]) && vInput.size() == 1) {
+		else if (!isNumber(vInput[0]) && vInput.size() == 1) {
 			Error = true;
 		}
 	}
@@ -407,7 +407,11 @@ namespace calculator
 
 	//returns true if String is multi-digit-Numer
 	bool Controller::isNumber(std::string pString) {
-		for (int i = 0; i < pString.length(); i++) {
+		int i = 0;
+		if (pString[0] == '-') {
+			i = 1;
+		}
+		for (i; i < pString.length(); i++) {
 			if (!isOneDigitNumber(pString[i]) && pString[i] != '.') {
 				return false;
 			}

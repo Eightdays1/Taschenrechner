@@ -198,7 +198,8 @@ void TaschenrechnerV2::buttonPressedAns()
     controller.registerInput("ans");
 }
 
-void TaschenrechnerV2::buttonPressedChangeSign() {
+void TaschenrechnerV2::buttonPressedChangeSign()
+{
     controller.registerInput("X");
 }
 
