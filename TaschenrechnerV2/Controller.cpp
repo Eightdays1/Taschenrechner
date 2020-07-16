@@ -21,7 +21,7 @@ namespace calculator
 	QString tResult;
 	bool Error = false;
 	std::vector<Memory*> vMemory;				//Stores Pointers to Memory-Objects
-	bool bLoadHistory = 0;						//If 1, a memory-Object was loaded as last action
+	bool bLoadHistory = false;						//If 1, a memory-Object was loaded as last action
 	int iLoadHistoryEntryNr = 0;				//Index of las loaded Memory-Object
 	std::string sInputString;					//Input as String, build by "registerInput"
 	TaschenrechnerV2* calc;						//"Calc" Object, im Konstruktor übergeben
@@ -43,7 +43,7 @@ namespace calculator
 	//Is called by GUI if there is an Input. Input is given as String
 	QString Controller::calculate(std::string pInput)
 	{
-		bLoadHistory = 0;
+		bLoadHistory = false;
 		iLoadHistoryEntryNr = 0;
 		m_input = pInput;
 		vInput = {};
@@ -51,16 +51,36 @@ namespace calculator
 
 		//split String, store in Array/Vector
 		splitString(pInput);
-		//Convert String into UPN
-		convertvInputToUPN();
-		//(Create Objects and )solve UPN
-		m_result = solveUPN();
-		//Strip unnessecarry decimals
-		m_result = StripDecimals(m_result);
-		//Save Input and results in Memory
+		//Check for Syntaxerror
+		if (vInput.size() > 1) {
+			checkSyntax();
+			//Convert String into UPN
+			convertvInputToUPN();
+			//(Create Objects and )solve UPN
+			m_result = solveUPN();
+			//Strip unnessecarry decimals
+			m_result = StripDecimals(m_result);
+			//Save Input and results in Memory
+		}
+		else if (isOneDigitNumber(vInput[0]) && vInput.size() == 1) {
+			m_result = StripDecimals(vInput[0]);
+		}
+		else {
+			Error = true;
+		}
 		store(m_input, m_result);
 		//Return result
 		return QString::fromStdString(m_result);
+	}
+
+	void Controller::checkSyntax() {
+		std::string test = "";
+		//Check for "x/0"
+		for (int i = 1; i < vInput.size(); i++) {
+			if (vInput[i - 1] == "/" && vInput[i] == "0") {
+				Error = true;
+			}
+		}
 	}
 
 	//splits String into Numbers and Operstors, stores them in global Vector vInput
@@ -258,8 +278,9 @@ namespace calculator
 		}
 		else {
 			iLoadHistoryEntryNr = vMemory.size();
-			bLoadHistory = 1;
+			bLoadHistory = true;
 		}
+
 		calc->showInput(QString::fromStdString(vMemory[iLoadHistoryEntryNr]->getInput()));
 		calc->showResult(QString::fromStdString(vMemory[iLoadHistoryEntryNr]->getResult()));
 	}
@@ -282,6 +303,13 @@ namespace calculator
 		}
 		else if (pInput == "deleteLastNum") {
 			sInputString = sInputString.substr(0, sInputString.size() - 1);
+			calc->showInput(QString::fromStdString(sInputString));
+		}
+		else if (pInput == "history") {
+			load();
+		}
+		else if (pInput == "ans") {
+			sInputString.append(tResult.toStdString());
 			calc->showInput(QString::fromStdString(sInputString));
 		}
 		else if ((sInputString == "" || isOperator(sInputString[sInputString.size()])) && pInput == ".")  {

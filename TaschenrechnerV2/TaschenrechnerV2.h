@@ -2,6 +2,8 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_TaschenrechnerV2.h"
+#include <QWidget>
+#include <QtGui>
 
 class TaschenrechnerV2 : public QMainWindow
 {
@@ -13,6 +15,9 @@ public:
     //output
     void showInput(QString pstring);
     void showResult(QString pString);
+
+protected:
+    void keyReleaseEvent(QKeyEvent*);
 
 private slots:
     //input
@@ -37,6 +42,8 @@ private slots:
     void buttonPressedClear();
     void buttonPressedDeleteLastNum();
     void buttonPressedDot();
+    void buttonPressedHistory();
+    void buttonPressedAns();
 
 private:
     Ui::TaschenrechnerV2Class ui;

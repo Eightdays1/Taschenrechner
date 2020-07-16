@@ -1,5 +1,7 @@
 #include "TaschenrechnerV2.h"
 #include <QtCore>
+#include <QKeyEvent>
+#include <QApplication>
 #include "windows.h"
 #include "Controller.h"
 
@@ -11,7 +13,6 @@ TaschenrechnerV2::TaschenrechnerV2(QWidget *parent)
 {
     ui.setupUi(this);
     controller = calculator::Controller(this);
-    //ui.debugLabel->setText(controller.calculate("1+1"));
     ui.resultLabel->setText("0");
     ui.inputLabel->setText("0");
     connect(ui.pushButton_number0, SIGNAL(released()), this, SLOT(buttonPressed0()));
@@ -35,8 +36,36 @@ TaschenrechnerV2::TaschenrechnerV2(QWidget *parent)
     connect(ui.pushButton_clear, SIGNAL(released()), this, SLOT(buttonPressedClear()));
     connect(ui.pushButton_deleteNum, SIGNAL(released()), this, SLOT(buttonPressedDeleteLastNum()));
     connect(ui.pushButton_dot, SIGNAL(released()), this, SLOT(buttonPressedDot()));
+    connect(ui.pushButton_history, SIGNAL(released()), this, SLOT(buttonPressedHistory()));
+    connect(ui.pushButton_ans, SIGNAL(released()), this, SLOT(buttonPressedAns()));
+}
 
+//KeyEvent if key is released
 
+void TaschenrechnerV2::keyReleaseEvent(QKeyEvent* event)
+{
+    if (event->key() == Qt::Key_0) buttonPressed0();
+    else if (event->key() == Qt::Key_1) buttonPressed1();
+    else if (event->key() == Qt::Key_2) buttonPressed2();
+    else if (event->key() == Qt::Key_3) buttonPressed3();
+    else if (event->key() == Qt::Key_4) buttonPressed4();
+    else if (event->key() == Qt::Key_5) buttonPressed5();
+    else if (event->key() == Qt::Key_6) buttonPressed6();
+    else if (event->key() == Qt::Key_7) buttonPressed7();
+    else if (event->key() == Qt::Key_8) buttonPressed8();
+    else if (event->key() == Qt::Key_9) buttonPressed9();
+    else if (event->key() == Qt::Key_Plus) buttonPressedPlus();
+    else if (event->key() == Qt::Key_Minus) buttonPressedMinus();
+    else if (event->key() == Qt::Key_ParenLeft) buttonPressedBracketOpen();
+    else if (event->key() == Qt::Key_ParenRight) buttonPressedBracketClose();
+    else if (event->key() == Qt::Key_Asterisk) buttonPressedTimes();
+    else if (event->key() == Qt::Key_Slash) buttonPressedBy();
+    else if (event->key() == Qt::Key_Enter) buttonPressedEnter();
+    else if (event->key() == Qt::Key_AsciiCircum) buttonPressedPower();
+    else if (event->key() == Qt::Key_Period) buttonPressedDot();
+    else if (event->key() == Qt::Key_Comma) buttonPressedDot();
+    else if (event->key() == Qt::Key_Backspace) buttonPressedDeleteLastNum();
+    else if (event->key() == Qt::Key_Delete) buttonPressedClear();
 }
 
 //Output-Slots
@@ -157,3 +186,14 @@ void TaschenrechnerV2::buttonPressedDot()
 {
     controller.registerInput(".");
 }
+
+void TaschenrechnerV2::buttonPressedHistory()
+{
+    controller.registerInput("history");
+}
+
+void TaschenrechnerV2::buttonPressedAns()
+{
+    controller.registerInput("ans");
+}
+
