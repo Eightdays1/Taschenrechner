@@ -283,7 +283,7 @@ namespace calculator
 	void Controller::load() {
 		if (bLoadHistory) {
 			if (iLoadHistoryEntryNr <= 0) {
-				calc->showInput("Keine weitern Eintraege");
+				calc->showInput("Keine weiteren Eintraege");
 				calc->showResult("");
 				return;
 			}
@@ -333,7 +333,7 @@ namespace calculator
 			sInputString.append(tResult.toStdString());
 			calc->showInput(QString::fromStdString(sInputString));
 		}
-		else if (pInput == "(" && isOneDigitNumber(sInputString.back())) {
+		else if (pInput == "(" && sInputString.size() != 0 && isOneDigitNumber(sInputString.back()) ) {
 			sInputString.append("*(");
 			calc->showInput(QString::fromStdString(sInputString));
 		}
