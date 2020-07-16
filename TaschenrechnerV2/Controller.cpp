@@ -276,15 +276,15 @@ namespace calculator
 
 	//creates and stores Memory Objects
 	void Controller::store(std::string pInputString, std::string pResultString) {
-		vMemory.emplace_back(&calculator::Memory(pInputString, pResultString));
+		vMemory.emplace_back(new calculator::Memory(pInputString, pResultString));
 	}
 
 	//loads next History-Elemt with each successive call
 	void Controller::load() {
 		if (bLoadHistory) {
 			if (iLoadHistoryEntryNr <= 0) {
-				calc->showInput("Keine weitern Einträge");
-				calc->showResult("Keine weiteren Einträge");
+				calc->showInput("Keine weitern Eintraege");
+				calc->showResult("");
 				return;
 			}
 			else {
@@ -292,9 +292,14 @@ namespace calculator
 			}
 
 		}
-		else {
-			iLoadHistoryEntryNr = vMemory.size();
+		else if (vMemory.size() > 0) {
+			iLoadHistoryEntryNr = vMemory.size() - 1;
 			bLoadHistory = true;
+		}
+		else {
+			calc->showInput("Keine weitern Eintraege");
+			calc->showResult("");
+			return;
 		}
 
 		calc->showInput(QString::fromStdString(vMemory[iLoadHistoryEntryNr]->getInput()));
@@ -352,7 +357,7 @@ namespace calculator
 
 
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	//HELPER-FUNKTIONS
+	//HELPER-FUNCTIONS
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	//returns true if String is one-digit Number
