@@ -369,8 +369,9 @@ namespace calculator
 		}
 		else if (pInput == "ans") {
 			sInputString = vMemory[vMemory.size() - 1]->getResult();
-
-			//sInputString.append(tResult.toStdString());
+			if (sInputString[0] == '-') {
+				sInputString[0] = 'X';
+			}
 			showInputOnGUI(QString::fromStdString(sInputString));
 		}
 		else if (pInput == "(" && sInputString.size() != 0 && (isOneDigitNumber(sInputString.back()) || sInputString.back() == ')' )) {
@@ -386,7 +387,11 @@ namespace calculator
 			showInputOnGUI(QString::fromStdString(sInputString));
 		}
 		else if (sInputString == "" && isOperator(pInput)) {
-			sInputString = tResult.toStdString() + pInput;
+			sInputString = vMemory[vMemory.size() - 1]->getResult() + pInput;
+			if (sInputString[0] == '-') {
+				sInputString[0] = 'X';
+			}
+			//sInputString = tResult.toStdString() + pInput;
 			showInputOnGUI(QString::fromStdString(sInputString));
 		}
 		else {
@@ -425,7 +430,7 @@ namespace calculator
 	//returns true if String is multi-digit-Numer
 	bool Controller::isNumber(std::string pString) {
 		int i = 0;
-		if (pString[0] == '-') {
+		if (pString[0] == '-' && isOneDigitNumber(pString[1])) {
 			i = 1;
 		}
 		for (i; i < pString.length(); i++) {
