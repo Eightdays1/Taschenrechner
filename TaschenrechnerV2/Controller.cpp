@@ -59,10 +59,15 @@ namespace calculator
 			convertvInputToUPN();
 			//(Create Objects and )solve UPN
 			m_result = solveUPN();
-			//shorten Result and Strip unnessecarry decimals
-			m_result = shortenResult(m_result);
-			//Save Input and results in Memory
-			store(m_input, m_result);
+			if (!Error) {
+				//shorten Result and Strip unnessecarry decimals
+				m_result = shortenResult(m_result);
+				//Save Input and results in Memory
+				store(m_input, m_result);
+			}
+			else {
+				m_result = "Syntax Error";
+			}
 		}
 		else {
 			m_result = "Syntax Error";
@@ -87,7 +92,7 @@ namespace calculator
 						Error = true;
 					}
 				}
-				if (x != 0) {
+				if (x < 0) {
 					Error = true;
 				}
 			}
@@ -106,6 +111,10 @@ namespace calculator
 				}
 				//Check for empty brackets
 				else if (vInput[y] == "(" && vInput[i] == ")") {
+					Error = true;
+				}
+				else if ((vInput[y] == "(" && isOperator(vInput[i])) ||
+					(isOperator(vInput[y]) && vInput[i] == ")")) {
 					Error = true;
 				}
 			}
@@ -262,7 +271,7 @@ namespace calculator
 				}
 			}
 		}
-			return sStack.top();
+		return sStack.top();
 	}
 
 	//Creates Operation-Objects, runs solve() and the destuctor, returns Solution
@@ -290,6 +299,7 @@ namespace calculator
 		}
 		else if (pOperatorString == "/") {
 			if (dRightNum == 0) {
+				Error = true;
 			}
 			else {
 				calculator::Division div = calculator::Division(dLeftNum, dRightNum);
@@ -365,7 +375,7 @@ namespace calculator
 			load();
 		}
 		else if (pInput == "ans") {
-			sInputString = vMemory[vMemory.size() - 1]->getResult();
+			sInputString.append(vMemory[vMemory.size() - 1]->getResult());
 			if (sInputString[0] == '-') {
 				sInputString[0] = 'X';
 			}
