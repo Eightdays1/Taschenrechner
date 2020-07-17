@@ -59,8 +59,9 @@ namespace calculator
 			convertvInputToUPN();
 			//(Create Objects and )solve UPN
 			m_result = solveUPN();
+			m_result = shortenResult(m_result);
 			//Strip unnessecarry decimals
-			m_result = stripDecimals(m_result);
+			//m_result = stripDecimals(m_result);
 			//Save Input and results in Memory
 			store(m_input, m_result);
 		}
@@ -71,9 +72,12 @@ namespace calculator
 		return QString::fromStdString(m_result);
 	}
 
+	//checks Sytax and sets Error
 	void Controller::checkSyntax() {
 		int i, y, x = 0;
 		if (vInput.size() > 1) {
+
+			//Parentheses
 			for (i = 0; i < vInput.size(); i++) {
 				if (vInput[i] == "(") {
 					x++;
@@ -88,7 +92,6 @@ namespace calculator
 					Error = true;
 				}
 			}
-
 			if (x != 0) {
 				Error = true;
 			}
@@ -161,6 +164,7 @@ namespace calculator
 				
 			}
 		}
+		//push last Number to Stack
 		if (sLastNumber != "") {
 			if (bNegativeValue == true) {
 				vInput.push_back("-" + sLastNumber);
@@ -177,11 +181,9 @@ namespace calculator
 		for (int i = 0; i < vInput.size(); i++)
 		{
 			const std::string token = vInput[i];
-
 			if (isOperator(token))
 			{
 				const std::string o1 = token;
-
 				if (!stack.empty())
 				{
 					std::string o2 = stack.top();
@@ -261,10 +263,7 @@ namespace calculator
 				}
 			}
 		}
-		
-
 			return sStack.top();
-
 	}
 
 	//Creates Operation-Objects, runs solve() and the destuctor, returns Solution
@@ -315,6 +314,7 @@ namespace calculator
 
 	//loads next History-Elemt with each successive call
 	void Controller::load() {
+		//an Entry was already loades
 		if (bLoadHistory) {
 			if (iLoadHistoryEntryNr <= 0) {
 				showInputOnGUI("Keine weiteren Eintraege");
@@ -326,16 +326,18 @@ namespace calculator
 			}
 
 		}
+		//load last Result
 		else if (vMemory.size() > 0) {
 			iLoadHistoryEntryNr = vMemory.size() - 1;
 			bLoadHistory = true;
 		}
+		//no Entries
 		else {
 			showInputOnGUI("Keine weitern Eintraege");
 			calc->showResult("");
 			return;
 		}
-
+		//show Input an Result
 		showInputOnGUI(QString::fromStdString(vMemory[iLoadHistoryEntryNr]->getInput()));
 		calc->showResult(QString::fromStdString(vMemory[iLoadHistoryEntryNr]->getResult()));
 	}
@@ -370,24 +372,27 @@ namespace calculator
 			}
 			showInputOnGUI(QString::fromStdString(sInputString));
 		}
+		//if no Operator betwenn Number and Parentheses or closing and opening Parentheses, multiplicate
 		else if (pInput == "(" && sInputString.size() != 0 && (isOneDigitNumber(sInputString.back()) || sInputString.back() == ')' )) {
 			sInputString.append("*(");
 			showInputOnGUI(QString::fromStdString(sInputString));
 		}
+		//convert .x to 0.x
 		else if ((sInputString == "" || isOperator(sInputString[sInputString.size()])) && pInput == ".")  {
 			sInputString = "0.";
 			showInputOnGUI(QString::fromStdString(sInputString));
 		}
+		//first Input is not an Operator
 		else if (sInputString == "" && !isOperator(pInput)) {
 			sInputString = pInput;
 			showInputOnGUI(QString::fromStdString(sInputString));
 		}
+		//first Input is Operator
 		else if (sInputString == "" && isOperator(pInput)) {
 			sInputString = vMemory[vMemory.size() - 1]->getResult() + pInput;
 			if (sInputString[0] == '-') {
 				sInputString[0] = 'X';
 			}
-			//sInputString = tResult.toStdString() + pInput;
 			showInputOnGUI(QString::fromStdString(sInputString));
 		}
 		else {
@@ -503,7 +508,7 @@ namespace calculator
 		return pString;
 	}
 
-
+	//Exchanges 'X' with '-' and shows on Input
 	void Controller::showInputOnGUI(QString pString) {
 		for (int i = 0; i < pString.length(); i++) {
 			if (pString[i] == 'X') {
@@ -511,5 +516,21 @@ namespace calculator
 			}
 		}
 		calc->showInput(pString);
+	}
+
+	std::string Controller::shortenResult(std::string pString) {
+		int iExponent = 0;
+		std::string::size_type sz;
+		double dResult = std::stod(pString, &sz);
+		if (dResult > 999999999999999999) {
+			while (dResult > 9) {
+				dResult = dResult * 0.1;
+				iExponent++;
+			}
+			return stripDecimals(std::to_string(dResult)) + "e^" + std::to_string(iExponent);
+		}
+		else {
+			return stripDecimals(pString);
+		}	
 	}
 }
