@@ -80,11 +80,15 @@ namespace calculator
 				}
 				else if (vInput[i] == ")") {
 					x--;
+					if (x < 0) {
+						Error = true;
+					}
 				}
-				if (x < 0) {
+				if (x != 0) {
 					Error = true;
 				}
 			}
+
 			if (x != 0) {
 				Error = true;
 			}
@@ -271,42 +275,34 @@ namespace calculator
 		double dLeftNum = std::stod(pLeftString, &sz);
 		double dRightNum = std::stod(pRightString, &sz);
 
-
-		try {
-			if (pOperatorString == "+") {
-				calculator::Addition add = calculator::Addition(dLeftNum, dRightNum);
-				sReturnString = std::to_string(add.solve());
-				add.~Addition();
+		if (pOperatorString == "+") {
+			calculator::Addition add = calculator::Addition(dLeftNum, dRightNum);
+			sReturnString = std::to_string(add.solve());
+			add.~Addition();
+		}
+		else if (pOperatorString == "-") {
+			calculator::Substraction sub = calculator::Substraction(dLeftNum, dRightNum);
+			sReturnString = std::to_string(sub.solve());
+			sub.~Substraction();
+		}
+		else if (pOperatorString == "*") {
+			calculator::Multiplication mul = calculator::Multiplication(dLeftNum, dRightNum);
+			sReturnString = std::to_string(mul.solve());
+			mul.~Multiplication();
+		}
+		else if (pOperatorString == "/") {
+			if (dRightNum == 0) {
 			}
-			else if (pOperatorString == "-") {
-				calculator::Substraction sub = calculator::Substraction(dLeftNum, dRightNum);
-				sReturnString = std::to_string(sub.solve());
-				sub.~Substraction();
-			}
-			else if (pOperatorString == "*") {
-				calculator::Multiplication mul = calculator::Multiplication(dLeftNum, dRightNum);
-				sReturnString = std::to_string(mul.solve());
-				mul.~Multiplication();
-			}
-			else if (pOperatorString == "/") {
-				if (dRightNum == 0) {
-					throw std::runtime_error("Math error: Attempted to divide by Zero");
-				}
-				else {
-					calculator::Division div = calculator::Division(dLeftNum, dRightNum);
-					sReturnString = std::to_string(div.solve());
-					div.~Division();
-				}
-			}
-			else if (pOperatorString == "^") {
-				calculator::Power pwr = calculator::Power(dLeftNum, dRightNum);
-				sReturnString = std::to_string(pwr.solve());
-				pwr.~Power();
+			else {
+				calculator::Division div = calculator::Division(dLeftNum, dRightNum);
+				sReturnString = std::to_string(div.solve());
+				div.~Division();
 			}
 		}
-
-		catch (std::runtime_error e) {
-			calc->showResult(QString::fromStdString(e.what()));
+		else if (pOperatorString == "^") {
+			calculator::Power pwr = calculator::Power(dLeftNum, dRightNum);
+			sReturnString = std::to_string(pwr.solve());
+			pwr.~Power();
 		}
 
 		return sReturnString;
