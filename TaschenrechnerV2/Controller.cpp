@@ -59,9 +59,8 @@ namespace calculator
 			convertvInputToUPN();
 			//(Create Objects and )solve UPN
 			m_result = solveUPN();
+			//shorten Result and Strip unnessecarry decimals
 			m_result = shortenResult(m_result);
-			//Strip unnessecarry decimals
-			//m_result = stripDecimals(m_result);
 			//Save Input and results in Memory
 			store(m_input, m_result);
 		}
@@ -518,6 +517,7 @@ namespace calculator
 		calc->showInput(pString);
 	}
 
+	//shorten Result and strip Decimals
 	std::string Controller::shortenResult(std::string pString) {
 		int iExponent = 0;
 		std::string::size_type sz;
